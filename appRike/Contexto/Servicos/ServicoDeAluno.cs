@@ -11,7 +11,12 @@ namespace Infra.Servicos
 {
     public class ServicoDeAluno
     {
-        private DbContexto Db = new DbContexto();
+        private DbContexto Db;
+
+        public ServicoDeAluno()
+        {
+            Db = new DbContexto();
+        }
 
         public bool Adicionar(Aluno aluno)
         {
@@ -51,6 +56,11 @@ namespace Infra.Servicos
             }
 
             return query.OrderBy(x => x.Nome).ToList();
+        }
+
+        public void Dispose()
+        {
+            Db.Dispose();
         }
     }
 }

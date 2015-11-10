@@ -1,6 +1,6 @@
 ﻿namespace appRike.Funções
 {
-    partial class Lista
+    partial class FuncaoListaAgenda
     {
         /// <summary>
         /// Required designer variable.
@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.dgvAgenda = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAluno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colComputador = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colExcluir = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.cbbTipo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnNovo = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.btnAgendar = new System.Windows.Forms.Button();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colComputador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAluno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colExcluir = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAgenda)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,62 +50,16 @@
             this.dgvAgenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAgenda.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.colAluno,
-            this.colComputador,
             this.colHorario,
+            this.colComputador,
+            this.colAluno,
             this.colExcluir});
             this.dgvAgenda.Location = new System.Drawing.Point(12, 74);
             this.dgvAgenda.Name = "dgvAgenda";
             this.dgvAgenda.ReadOnly = true;
-            this.dgvAgenda.Size = new System.Drawing.Size(743, 252);
+            this.dgvAgenda.Size = new System.Drawing.Size(743, 513);
             this.dgvAgenda.TabIndex = 0;
-            // 
-            // Id
-            // 
-            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // colAluno
-            // 
-            this.colAluno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colAluno.DataPropertyName = "Aluno";
-            this.colAluno.HeaderText = "Aluno";
-            this.colAluno.Name = "colAluno";
-            this.colAluno.ReadOnly = true;
-            this.colAluno.Width = 200;
-            // 
-            // colComputador
-            // 
-            this.colComputador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colComputador.DataPropertyName = "Computador";
-            this.colComputador.HeaderText = "Computador";
-            this.colComputador.Name = "colComputador";
-            this.colComputador.ReadOnly = true;
-            this.colComputador.Width = 150;
-            // 
-            // colHorario
-            // 
-            this.colHorario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colHorario.DataPropertyName = "Horario";
-            this.colHorario.HeaderText = "Horario";
-            this.colHorario.Name = "colHorario";
-            this.colHorario.ReadOnly = true;
-            this.colHorario.Width = 270;
-            // 
-            // colExcluir
-            // 
-            this.colExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colExcluir.DataPropertyName = "Acao";
-            this.colExcluir.HeaderText = "";
-            this.colExcluir.Name = "colExcluir";
-            this.colExcluir.ReadOnly = true;
-            this.colExcluir.Text = "Excluir";
-            this.colExcluir.ToolTipText = "Excluir";
-            this.colExcluir.Width = 80;
+            this.dgvAgenda.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAgenda_CellContentClick);
             // 
             // txtDescricao
             // 
@@ -114,16 +68,6 @@
             this.txtDescricao.Size = new System.Drawing.Size(356, 20);
             this.txtDescricao.TabIndex = 2;
             this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(549, 23);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(70, 23);
-            this.btnBuscar.TabIndex = 3;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // cbbTipo
             // 
@@ -152,29 +96,88 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Nome";
             // 
-            // btnNovo
+            // btnBuscar
             // 
-            this.btnNovo.Location = new System.Drawing.Point(687, 25);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(68, 23);
-            this.btnNovo.TabIndex = 7;
-            this.btnNovo.Text = "Agendar";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            this.btnBuscar.Image = global::appRike.Properties.Resources.procurar;
+            this.btnBuscar.Location = new System.Drawing.Point(549, 22);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(33, 23);
+            this.btnBuscar.TabIndex = 16;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // Lista
+            // btnAgendar
+            // 
+            this.btnAgendar.Image = global::appRike.Properties.Resources.agendar;
+            this.btnAgendar.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnAgendar.Location = new System.Drawing.Point(657, 25);
+            this.btnAgendar.Name = "btnAgendar";
+            this.btnAgendar.Size = new System.Drawing.Size(98, 25);
+            this.btnAgendar.TabIndex = 17;
+            this.btnAgendar.Text = "   Agendar";
+            this.btnAgendar.UseVisualStyleBackColor = true;
+            this.btnAgendar.Click += new System.EventHandler(this.btnAgendar_Click);
+            // 
+            // Id
+            // 
+            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // colHorario
+            // 
+            this.colHorario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colHorario.DataPropertyName = "Horario";
+            this.colHorario.HeaderText = "Horario";
+            this.colHorario.Name = "colHorario";
+            this.colHorario.ReadOnly = true;
+            this.colHorario.Width = 200;
+            // 
+            // colComputador
+            // 
+            this.colComputador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colComputador.DataPropertyName = "Computador";
+            this.colComputador.HeaderText = "Computador";
+            this.colComputador.Name = "colComputador";
+            this.colComputador.ReadOnly = true;
+            this.colComputador.Width = 190;
+            // 
+            // colAluno
+            // 
+            this.colAluno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colAluno.DataPropertyName = "Aluno";
+            this.colAluno.HeaderText = "Aluno";
+            this.colAluno.Name = "colAluno";
+            this.colAluno.ReadOnly = true;
+            this.colAluno.Width = 230;
+            // 
+            // colExcluir
+            // 
+            this.colExcluir.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colExcluir.DataPropertyName = "Acao";
+            this.colExcluir.HeaderText = "";
+            this.colExcluir.Name = "colExcluir";
+            this.colExcluir.ReadOnly = true;
+            this.colExcluir.Text = "Excluir";
+            this.colExcluir.ToolTipText = "Excluir";
+            this.colExcluir.Width = 80;
+            // 
+            // FuncaoListaAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 338);
-            this.Controls.Add(this.btnNovo);
+            this.ClientSize = new System.Drawing.Size(769, 599);
+            this.Controls.Add(this.btnAgendar);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbbTipo);
-            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.dgvAgenda);
-            this.Name = "Lista";
+            this.Name = "FuncaoListaAgenda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Lista";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAgenda)).EndInit();
@@ -187,15 +190,15 @@
 
         private System.Windows.Forms.DataGridView dgvAgenda;
         private System.Windows.Forms.TextBox txtDescricao;
-        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.ComboBox cbbTipo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Button btnAgendar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAluno;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colComputador;
         private System.Windows.Forms.DataGridViewTextBoxColumn colHorario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colComputador;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAluno;
         private System.Windows.Forms.DataGridViewButtonColumn colExcluir;
-        private System.Windows.Forms.Button btnNovo;
     }
 }

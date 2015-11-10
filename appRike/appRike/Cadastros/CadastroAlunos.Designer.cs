@@ -29,32 +29,46 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtIdade = new System.Windows.Forms.NumericUpDown();
-            this.btnNovo = new System.Windows.Forms.Button();
-            this.btnAlterar = new System.Windows.Forms.Button();
-            this.btnGravar = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
+            this.txtNome = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnGravar = new System.Windows.Forms.Button();
+            this.btnAlterar = new System.Windows.Forms.Button();
+            this.btnNovo = new System.Windows.Forms.Button();
+            this.lbMensagem = new System.Windows.Forms.Label();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtIdade)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtIdade);
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(594, 85);
+            this.groupBox1.Size = new System.Drawing.Size(548, 78);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Nome";
+            // 
+            // txtNome
+            // 
+            this.txtNome.Location = new System.Drawing.Point(59, 32);
+            this.txtNome.Name = "txtNome";
+            this.txtNome.Size = new System.Drawing.Size(408, 20);
+            this.txtNome.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -63,111 +77,114 @@
             this.groupBox2.Controls.Add(this.btnGravar);
             this.groupBox2.Controls.Add(this.btnAlterar);
             this.groupBox2.Controls.Add(this.btnNovo);
-            this.groupBox2.Location = new System.Drawing.Point(89, 103);
+            this.groupBox2.Location = new System.Drawing.Point(12, 90);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(459, 56);
+            this.groupBox2.Size = new System.Drawing.Size(548, 55);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
-            // txtNome
-            // 
-            this.txtNome.Location = new System.Drawing.Point(59, 28);
-            this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(388, 20);
-            this.txtNome.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nome";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(456, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Idade";
-            // 
-            // txtIdade
-            // 
-            this.txtIdade.Location = new System.Drawing.Point(496, 28);
-            this.txtIdade.Name = "txtIdade";
-            this.txtIdade.Size = new System.Drawing.Size(83, 20);
-            this.txtIdade.TabIndex = 4;
-            // 
-            // btnNovo
-            // 
-            this.btnNovo.Location = new System.Drawing.Point(21, 19);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(75, 23);
-            this.btnNovo.TabIndex = 0;
-            this.btnNovo.Text = "Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            // 
-            // btnAlterar
-            // 
-            this.btnAlterar.Location = new System.Drawing.Point(106, 19);
-            this.btnAlterar.Name = "btnAlterar";
-            this.btnAlterar.Size = new System.Drawing.Size(75, 23);
-            this.btnAlterar.TabIndex = 1;
-            this.btnAlterar.Text = "Alterar";
-            this.btnAlterar.UseVisualStyleBackColor = true;
-            // 
-            // btnGravar
-            // 
-            this.btnGravar.Location = new System.Drawing.Point(191, 19);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(75, 23);
-            this.btnGravar.TabIndex = 2;
-            this.btnGravar.Text = "Gravar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            // 
-            // btnExcluir
-            // 
-            this.btnExcluir.Location = new System.Drawing.Point(276, 19);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 3;
-            this.btnExcluir.Text = "Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
-            // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(361, 19);
+            this.btnCancelar.Image = global::appRike.Properties.Resources.cancela;
+            this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelar.Location = new System.Drawing.Point(435, 19);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(98, 25);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.Image = global::appRike.Properties.Resources.apagar;
+            this.btnExcluir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExcluir.Location = new System.Drawing.Point(331, 19);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(98, 25);
+            this.btnExcluir.TabIndex = 3;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
+            // btnGravar
+            // 
+            this.btnGravar.Image = global::appRike.Properties.Resources.save;
+            this.btnGravar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGravar.Location = new System.Drawing.Point(229, 19);
+            this.btnGravar.Name = "btnGravar";
+            this.btnGravar.Size = new System.Drawing.Size(98, 25);
+            this.btnGravar.TabIndex = 2;
+            this.btnGravar.Text = "Gravar";
+            this.btnGravar.UseVisualStyleBackColor = true;
+            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
+            // 
+            // btnAlterar
+            // 
+            this.btnAlterar.Image = global::appRike.Properties.Resources.alterar;
+            this.btnAlterar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAlterar.Location = new System.Drawing.Point(125, 19);
+            this.btnAlterar.Name = "btnAlterar";
+            this.btnAlterar.Size = new System.Drawing.Size(98, 25);
+            this.btnAlterar.TabIndex = 1;
+            this.btnAlterar.Text = "Alterar";
+            this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
+            // 
+            // btnNovo
+            // 
+            this.btnNovo.Image = global::appRike.Properties.Resources.novo;
+            this.btnNovo.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnNovo.Location = new System.Drawing.Point(21, 19);
+            this.btnNovo.Name = "btnNovo";
+            this.btnNovo.Size = new System.Drawing.Size(98, 25);
+            this.btnNovo.TabIndex = 0;
+            this.btnNovo.Text = "Novo";
+            this.btnNovo.UseVisualStyleBackColor = true;
+            this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
+            // 
+            // lbMensagem
+            // 
+            this.lbMensagem.AutoSize = true;
+            this.lbMensagem.Location = new System.Drawing.Point(12, 151);
+            this.lbMensagem.Name = "lbMensagem";
+            this.lbMensagem.Size = new System.Drawing.Size(67, 13);
+            this.lbMensagem.TabIndex = 18;
+            this.lbMensagem.Text = "lbMensagem";
+            this.lbMensagem.Visible = false;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::appRike.Properties.Resources.procurar;
+            this.btnBuscar.Location = new System.Drawing.Point(478, 30);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(33, 23);
+            this.btnBuscar.TabIndex = 5;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // CadastroAlunos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 174);
+            this.ClientSize = new System.Drawing.Size(581, 168);
+            this.Controls.Add(this.lbMensagem);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "CadastroAlunos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cadastro de Alunos";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtIdade)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.NumericUpDown txtIdade;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -176,6 +193,8 @@
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnNovo;
+        private System.Windows.Forms.Label lbMensagem;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }
 

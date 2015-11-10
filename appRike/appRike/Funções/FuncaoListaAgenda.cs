@@ -1,4 +1,5 @@
-﻿using Infra.Servicos;
+﻿using Dominio.Entidades;
+using Infra.Servicos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,16 +12,16 @@ using System.Windows.Forms;
 
 namespace appRike.Funções
 {
-    public partial class Lista : Form
+    public partial class FuncaoListaAgenda : Form
     {
         private ServicoDeAgenda agendaApp;
-        private List<Dominio.Entidades.Agenda> listAll;
+        private List<Agenda> listAll;
         private DataTable dt;
 
-        public Lista()
+        public FuncaoListaAgenda()
         {
             InitializeComponent();
-            EstadoInicial();        
+            EstadoInicial();
         }
 
         public void CarregaTipo()
@@ -38,7 +39,6 @@ namespace appRike.Funções
 
         public void EstadoInicial()
         {
-            agendaApp = new ServicoDeAgenda();
             dt = new DataTable();
             listAll = null;
             dt.Columns.Add("Id");
@@ -53,14 +53,18 @@ namespace appRike.Funções
 
         public void CarregaAgenda()
         {
-            listAll = agendaApp.GetAll("Horario", "Computador", "Aluno").OrderBy(x => x.Aluno.Nome).ToList();
+            agendaApp = new ServicoDeAgenda();
+            listAll = agendaApp.GetAll("Horario", "Computador", "Aluno").ToList();
             MontarDataTable();
+            agendaApp.Dispose();
         }
 
         public void MontarDataTable()
         {
             string horario;
             dt.Clear();
+
+            listAll = listAll.OrderBy(x => x.Horario.Ordem).ThenBy(x => x.Horario.HoraInicial).ThenBy(x => x.Computador.Descricao).ToList();
 
             foreach (var item in listAll)
             {
@@ -73,24 +77,29 @@ namespace appRike.Funções
 
         public void PesquisaAgenda(int tipo, string nome)
         {
+            agendaApp = new ServicoDeAgenda();
             listAll = null;
 
             switch (tipo)
             {
-                case 1: listAll = agendaApp.Get(x => x.Aluno.Nome.ToUpper().Contains(nome.ToUpper()), "Horario", "Computador", "Aluno").OrderBy(x => x.Aluno.Nome).ToList(); break;
-                case 2: listAll = agendaApp.Get(x => x.Computador.Descricao.ToUpper().Contains(nome.ToUpper()), "Horario", "Computador", "Aluno").OrderBy(x => x.Aluno.Nome).ToList(); ; break;
+                case 1: listAll = agendaApp.Get(x => x.Aluno.Nome.ToUpper().Contains(nome.ToUpper()), "Horario", "Computador", "Aluno").ToList(); break;
+                case 2: listAll = agendaApp.Get(x => x.Computador.Descricao.ToUpper().Contains(nome.ToUpper()), "Horario", "Computador", "Aluno").ToList(); break;
                 case 3: listAll = agendaApp.Get(x => x.Horario.Dia.ToUpper().Contains(nome.ToUpper()) ||
                                   x.Horario.HoraInicial.ToUpper().Contains(nome.ToUpper()) ||
                                   x.Horario.HoraFinal.ToUpper().Contains(nome.ToUpper()),
-                                  "Horario", "Computador", "Aluno").OrderBy(x => x.Aluno.Nome).ToList(); break;
+                                  "Horario", "Computador", "Aluno").ToList(); break;
             }
 
             MontarDataTable();
+            agendaApp.Dispose();
         }
 
-        private void txtDescricao_Enter(object sender, EventArgs e)
+        public void ExcluirAgendamento(int iCodigo)
         {
-            PesquisaAgenda((int)cbbTipo.SelectedValue, txtDescricao.Text);
+            agendaApp = new ServicoDeAgenda();
+            var agenda = agendaApp.GetById(iCodigo);
+            agendaApp.Excluir(agenda);
+            agendaApp.Dispose();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -106,12 +115,36 @@ namespace appRike.Funções
             }
         }
 
-        private void btnNovo_Click(object sender, EventArgs e)
+        private void btnAgendar_Click(object sender, EventArgs e)
         {
-            var tela = new Agenda();
-            tela.ShowDialog();
-            EstadoInicial();
+            var tela = new FuncaoAgenda();
+
+            if (!String.IsNullOrEmpty(tela.sErro))
+                MessageBox.Show(tela.sErro, "Problemas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            {
+                tela.ShowDialog();
+                EstadoInicial();
+            }
         }
+
+        private void dgvAgenda_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvAgenda.CurrentCell != null)
+            {
+              if(dgvAgenda.CurrentCell.ColumnIndex == 4)
+              {
+                  ExcluirAgendamento(Convert.ToInt32(dgvAgenda.CurrentRow.Cells["Id"].Value));
+                  EstadoInicial(); 
+              }
+            }
+        }
+
+     
+
+  
+
+     
 
     }
 }

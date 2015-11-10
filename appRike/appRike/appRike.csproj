@@ -87,17 +87,17 @@
     <Compile Include="Consultas\ConsultaHorarios.Designer.cs">
       <DependentUpon>ConsultaHorarios.cs</DependentUpon>
     </Compile>
-    <Compile Include="Funções\Agenda.cs">
+    <Compile Include="Funções\FuncaoAgenda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Funções\Agenda.Designer.cs">
-      <DependentUpon>Agenda.cs</DependentUpon>
+    <Compile Include="Funções\FuncaoAgenda.Designer.cs">
+      <DependentUpon>FuncaoAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Funções\Lista.cs">
+    <Compile Include="Funções\FuncaoListaAgenda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Funções\Lista.Designer.cs">
-      <DependentUpon>Lista.cs</DependentUpon>
+    <Compile Include="Funções\FuncaoListaAgenda.Designer.cs">
+      <DependentUpon>FuncaoListaAgenda.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,11 +125,11 @@
     <EmbeddedResource Include="Consultas\ConsultaHorarios.resx">
       <DependentUpon>ConsultaHorarios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Funções\Agenda.resx">
-      <DependentUpon>Agenda.cs</DependentUpon>
+    <EmbeddedResource Include="Funções\FuncaoAgenda.resx">
+      <DependentUpon>FuncaoAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Funções\Lista.resx">
-      <DependentUpon>Lista.cs</DependentUpon>
+    <EmbeddedResource Include="Funções\FuncaoListaAgenda.resx">
+      <DependentUpon>FuncaoListaAgenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -139,6 +139,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TelaInicial.resx">
       <DependentUpon>TelaInicial.cs</DependentUpon>
@@ -167,7 +168,16 @@
       <Name>Dominio</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Imagens\agendar.png" />
+    <None Include="Imagens\save.png" />
+    <None Include="Imagens\procurar.png" />
+    <None Include="Imagens\apagar.gif" />
+    <None Include="Imagens\alterar.png" />
+    <Content Include="Imagens\buscar.ico" />
+    <None Include="Imagens\novo.png" />
+    <None Include="Imagens\cancela.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

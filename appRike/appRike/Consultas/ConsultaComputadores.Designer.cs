@@ -28,39 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvComputadores = new System.Windows.Forms.DataGridView();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colComputador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComputadores)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Nome";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(393, 34);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(70, 23);
-            this.btnBuscar.TabIndex = 9;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // txtDescricao
-            // 
-            this.txtDescricao.Location = new System.Drawing.Point(31, 36);
-            this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(356, 20);
-            this.txtDescricao.TabIndex = 8;
             // 
             // dgvComputadores
             // 
@@ -70,11 +45,39 @@
             this.dgvComputadores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.colComputador});
-            this.dgvComputadores.Location = new System.Drawing.Point(31, 77);
+            this.dgvComputadores.Location = new System.Drawing.Point(26, 77);
             this.dgvComputadores.Name = "dgvComputadores";
             this.dgvComputadores.ReadOnly = true;
             this.dgvComputadores.Size = new System.Drawing.Size(443, 252);
             this.dgvComputadores.TabIndex = 7;
+            this.dgvComputadores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvComputadores_CellDoubleClick);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::appRike.Properties.Resources.procurar;
+            this.btnBuscar.Location = new System.Drawing.Point(436, 29);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(33, 23);
+            this.btnBuscar.TabIndex = 18;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(26, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Nome";
+            // 
+            // txtDescricao
+            // 
+            this.txtDescricao.Location = new System.Drawing.Point(76, 29);
+            this.txtDescricao.Name = "txtDescricao";
+            this.txtDescricao.Size = new System.Drawing.Size(354, 20);
+            this.txtDescricao.TabIndex = 16;
+            this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
             // 
             // Id
             // 
@@ -88,8 +91,8 @@
             // colComputador
             // 
             this.colComputador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colComputador.DataPropertyName = "Computador";
-            this.colComputador.HeaderText = "Computador";
+            this.colComputador.DataPropertyName = "Descricao";
+            this.colComputador.HeaderText = "Descrição";
             this.colComputador.Name = "colComputador";
             this.colComputador.ReadOnly = true;
             this.colComputador.Width = 400;
@@ -99,11 +102,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 341);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.dgvComputadores);
             this.Name = "ConsultaComputadores";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consulta de Computadores";
             ((System.ComponentModel.ISupportInitialize)(this.dgvComputadores)).EndInit();
             this.ResumeLayout(false);
@@ -113,10 +117,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.DataGridView dgvComputadores;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn colComputador;
     }

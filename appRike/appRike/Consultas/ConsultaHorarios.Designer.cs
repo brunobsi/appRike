@@ -28,39 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvHorarios = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtDescricao = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Nome";
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(389, 34);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(70, 23);
-            this.btnBuscar.TabIndex = 21;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            // 
-            // txtDescricao
-            // 
-            this.txtDescricao.Location = new System.Drawing.Point(27, 36);
-            this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(356, 20);
-            this.txtDescricao.TabIndex = 20;
             // 
             // dgvHorarios
             // 
@@ -75,6 +50,7 @@
             this.dgvHorarios.ReadOnly = true;
             this.dgvHorarios.Size = new System.Drawing.Size(443, 252);
             this.dgvHorarios.TabIndex = 19;
+            this.dgvHorarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHorarios_CellDoubleClick);
             // 
             // Id
             // 
@@ -94,16 +70,44 @@
             this.colHorario.ReadOnly = true;
             this.colHorario.Width = 400;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::appRike.Properties.Resources.procurar;
+            this.btnBuscar.Location = new System.Drawing.Point(435, 32);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(33, 23);
+            this.btnBuscar.TabIndex = 22;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(23, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Dia";
+            // 
+            // txtDescricao
+            // 
+            this.txtDescricao.Location = new System.Drawing.Point(75, 32);
+            this.txtDescricao.Name = "txtDescricao";
+            this.txtDescricao.Size = new System.Drawing.Size(354, 20);
+            this.txtDescricao.TabIndex = 20;
+            this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
+            // 
             // ConsultaHorarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(497, 339);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.dgvHorarios);
             this.Name = "ConsultaHorarios";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consulta de Horarios";
             ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).EndInit();
             this.ResumeLayout(false);
@@ -113,11 +117,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.DataGridView dgvHorarios;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn colHorario;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtDescricao;
     }
 }

@@ -9,7 +9,7 @@ namespace Infra.Contexto
 {    public class DbContexto : DbContext
     {
         public DbContexto()
-        : base("BancoRike"){ }
+        : base("banco"){ }
 
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Computador> Computadores { get; set; }

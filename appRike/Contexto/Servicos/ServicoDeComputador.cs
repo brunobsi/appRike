@@ -11,7 +11,12 @@ namespace Infra.Servicos
 {
     public class ServicoDeComputador
     {
-        private DbContexto Db = new DbContexto();
+        private DbContexto Db;
+
+        public ServicoDeComputador()
+        {
+            Db = new DbContexto();
+        }
 
         public bool Adicionar(Computador computador)
         {
@@ -51,6 +56,11 @@ namespace Infra.Servicos
             }
 
             return query.OrderBy(x => x.Descricao).ToList();
+        }
+
+        public void Dispose()
+        {
+            Db.Dispose();
         }
     }
 }

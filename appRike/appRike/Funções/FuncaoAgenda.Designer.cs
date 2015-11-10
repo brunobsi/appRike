@@ -1,6 +1,6 @@
 ﻿namespace appRike.Funções
 {
-    partial class Agenda
+    partial class FuncaoAgenda
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnGravar = new System.Windows.Forms.Button();
             this.cbbAluno = new System.Windows.Forms.ComboBox();
             this.btnAlunoAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,18 +39,9 @@
             this.cbbComputador = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnComputadorAdd = new System.Windows.Forms.Button();
+            this.btnAgendar = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnGravar
-            // 
-            this.btnGravar.Location = new System.Drawing.Point(322, 200);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(75, 23);
-            this.btnGravar.TabIndex = 2;
-            this.btnGravar.Text = "Agendar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
             // 
             // cbbAluno
             // 
@@ -83,11 +73,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAgendar);
             this.groupBox2.Controls.Add(this.lbMensagem);
             this.groupBox2.Controls.Add(this.cbbHorario);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.btnHorarioAdd);
-            this.groupBox2.Controls.Add(this.btnGravar);
             this.groupBox2.Controls.Add(this.cbbComputador);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.btnComputadorAdd);
@@ -96,7 +86,7 @@
             this.groupBox2.Controls.Add(this.btnAlunoAdd);
             this.groupBox2.Location = new System.Drawing.Point(21, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(422, 248);
+            this.groupBox2.Size = new System.Drawing.Size(422, 230);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             // 
@@ -166,13 +156,25 @@
             this.btnComputadorAdd.Text = "+";
             this.btnComputadorAdd.UseVisualStyleBackColor = true;
             // 
-            // Agenda
+            // btnAgendar
+            // 
+            this.btnAgendar.Image = global::appRike.Properties.Resources.agendar;
+            this.btnAgendar.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnAgendar.Location = new System.Drawing.Point(299, 194);
+            this.btnAgendar.Name = "btnAgendar";
+            this.btnAgendar.Size = new System.Drawing.Size(98, 25);
+            this.btnAgendar.TabIndex = 18;
+            this.btnAgendar.Text = "   Agendar";
+            this.btnAgendar.UseVisualStyleBackColor = true;
+            this.btnAgendar.Click += new System.EventHandler(this.btnAgendar_Click);
+            // 
+            // FuncaoAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(468, 274);
+            this.ClientSize = new System.Drawing.Size(468, 250);
             this.Controls.Add(this.groupBox2);
-            this.Name = "Agenda";
+            this.Name = "FuncaoAgenda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agenda";
             this.groupBox2.ResumeLayout(false);
@@ -183,7 +185,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.ComboBox cbbAluno;
         private System.Windows.Forms.Button btnAlunoAdd;
         private System.Windows.Forms.Label label1;
@@ -195,5 +196,6 @@
         private System.Windows.Forms.ComboBox cbbComputador;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnComputadorAdd;
+        private System.Windows.Forms.Button btnAgendar;
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using appRike.Cadastros;
+using appRike.Funções;
+using Infra.Servicos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +18,30 @@ namespace appRike
         public TelaInicial()
         {
             InitializeComponent();
+        }
+
+        private void alunosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tela = new CadastroAlunos();
+            tela.ShowDialog();
+        }
+
+        private void computadoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tela = new CadastroComputadores();
+            tela.ShowDialog();
+        }
+
+        private void horariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tela = new CadastroHorarios();
+            tela.ShowDialog();
+        }
+
+        private void agendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tela = new FuncaoListaAgenda();
+            tela.ShowDialog();
         }
     }
 }

@@ -11,16 +11,28 @@ namespace Infra.Servicos
 {
     public class ServicoDeHorario
     {
-        private DbContexto Db = new DbContexto();
+        private DbContexto Db;
+
+        public ServicoDeHorario()
+        {
+            Db = new DbContexto();
+        }
 
         public bool Adicionar(Horario horario)
         {
-            Db.Horarios.Add(horario);
-            return Db.SaveChanges() > 0;
+            if (!VerificaExistente(horario))
+            {
+                VerificaOrdem(horario);
+                Db.Horarios.Add(horario);
+                return Db.SaveChanges() > 0;
+            }
+
+            return false;
         }
 
         public bool Alterar(Horario horario)
         {
+            VerificaOrdem(horario);
             Db.Entry(horario).State = EntityState.Modified;
             return Db.SaveChanges() > 0;
         }
@@ -50,7 +62,29 @@ namespace Infra.Servicos
                 query = query.Include(item);
             }
 
-            return query.ToList();
+            return query.OrderBy(x => x.Ordem).ToList(); ;
+        }
+
+        public void VerificaOrdem(Horario horario)
+        {
+            switch (horario.Dia)
+            {
+                case "Segunda": horario.Ordem = 1; break;
+                case "Terça": horario.Ordem = 2; break;
+                case "Quarta": horario.Ordem = 3; break;
+                case "Quinta": horario.Ordem = 4; break;
+                case "Sexta": horario.Ordem = 5; break;
+            }
+        }
+        public bool VerificaExistente(Horario horario)
+        {
+            var horarioBanco = Get(x => x.Dia.Equals(horario.Dia) && x.HoraInicial.Equals(horario.HoraInicial) && x.HoraFinal.Equals(horario.HoraFinal));
+            return horarioBanco.Any();
+        }
+
+        public void Dispose()
+        {
+            Db.Dispose();
         }
     }
 }

@@ -12,11 +12,14 @@ namespace Infra.Servicos
 {
     public class ServicoDeAgenda
     {
-        private List<DateTime> HorariosFixos = new List<DateTime>();
-        private DbContexto Db = new DbContexto();
+        private List<DateTime> HorariosFixos;
+        private DbContexto Db;
 
         public ServicoDeAgenda()
         {
+            Db = new DbContexto();
+            HorariosFixos = new List<DateTime>();
+
             HorariosFixos.Add(DateTime.ParseExact("08:00", "H:m", null));
             HorariosFixos.Add(DateTime.ParseExact("09:00", "H:m", null));
             HorariosFixos.Add(DateTime.ParseExact("10:00", "H:m", null));
@@ -69,7 +72,7 @@ namespace Infra.Servicos
             if (result)
             {
                 var horario = Db.Horarios.First(x => x.Id.Equals(agenda.HorarioId));
-                var datas = Get(x => x.ComputadorId.Equals(agenda.ComputadorId) && 
+                var datas = Get(x => x.ComputadorId.Equals(agenda.ComputadorId) &&
                                      x.Horario.Dia.Equals(Converter.RemoverAcentos(horario.Dia)), "Horario");
 
                 foreach (var item in datas)
@@ -93,7 +96,7 @@ namespace Infra.Servicos
 
                             HoraAgenda++;
                         }
-         
+
                         HoraBanco++;
                     }
 
@@ -104,6 +107,9 @@ namespace Infra.Servicos
             return result;
         }
 
-        //Entrada1.ToShortTimeString()      
+        public void Dispose()
+        {
+            Db.Dispose();
+        }  
     }
 }
