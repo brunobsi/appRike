@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultaHorarios));
             this.dgvHorarios = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -106,6 +107,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.dgvHorarios);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConsultaHorarios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consulta de Horarios";

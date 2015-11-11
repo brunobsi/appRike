@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FuncaoAgenda));
             this.cbbAluno = new System.Windows.Forms.ComboBox();
             this.btnAlunoAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnAgendar = new System.Windows.Forms.Button();
             this.lbMensagem = new System.Windows.Forms.Label();
             this.cbbHorario = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,7 +41,6 @@
             this.cbbComputador = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnComputadorAdd = new System.Windows.Forms.Button();
-            this.btnAgendar = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,6 +90,18 @@
             this.groupBox2.Size = new System.Drawing.Size(422, 230);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
+            // 
+            // btnAgendar
+            // 
+            this.btnAgendar.Image = global::appRike.Properties.Resources.agendar;
+            this.btnAgendar.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnAgendar.Location = new System.Drawing.Point(299, 194);
+            this.btnAgendar.Name = "btnAgendar";
+            this.btnAgendar.Size = new System.Drawing.Size(98, 25);
+            this.btnAgendar.TabIndex = 18;
+            this.btnAgendar.Text = "   Agendar";
+            this.btnAgendar.UseVisualStyleBackColor = true;
+            this.btnAgendar.Click += new System.EventHandler(this.btnAgendar_Click);
             // 
             // lbMensagem
             // 
@@ -156,24 +169,13 @@
             this.btnComputadorAdd.Text = "+";
             this.btnComputadorAdd.UseVisualStyleBackColor = true;
             // 
-            // btnAgendar
-            // 
-            this.btnAgendar.Image = global::appRike.Properties.Resources.agendar;
-            this.btnAgendar.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnAgendar.Location = new System.Drawing.Point(299, 194);
-            this.btnAgendar.Name = "btnAgendar";
-            this.btnAgendar.Size = new System.Drawing.Size(98, 25);
-            this.btnAgendar.TabIndex = 18;
-            this.btnAgendar.Text = "   Agendar";
-            this.btnAgendar.UseVisualStyleBackColor = true;
-            this.btnAgendar.Click += new System.EventHandler(this.btnAgendar_Click);
-            // 
             // FuncaoAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 250);
             this.Controls.Add(this.groupBox2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FuncaoAgenda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agenda";

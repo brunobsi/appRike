@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultaComputadores));
             this.dgvComputadores = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colComputador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colComputador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvComputadores)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +52,24 @@
             this.dgvComputadores.Size = new System.Drawing.Size(443, 252);
             this.dgvComputadores.TabIndex = 7;
             this.dgvComputadores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvComputadores_CellDoubleClick);
+            // 
+            // Id
+            // 
+            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // colComputador
+            // 
+            this.colComputador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colComputador.DataPropertyName = "Descricao";
+            this.colComputador.HeaderText = "Descrição";
+            this.colComputador.Name = "colComputador";
+            this.colComputador.ReadOnly = true;
+            this.colComputador.Width = 400;
             // 
             // btnBuscar
             // 
@@ -79,24 +98,6 @@
             this.txtDescricao.TabIndex = 16;
             this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
             // 
-            // Id
-            // 
-            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // colComputador
-            // 
-            this.colComputador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colComputador.DataPropertyName = "Descricao";
-            this.colComputador.HeaderText = "Descrição";
-            this.colComputador.Name = "colComputador";
-            this.colComputador.ReadOnly = true;
-            this.colComputador.Width = 400;
-            // 
             // ConsultaComputadores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,6 +107,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.dgvComputadores);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ConsultaComputadores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Consulta de Computadores";

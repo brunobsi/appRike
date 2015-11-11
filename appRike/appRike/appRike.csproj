@@ -174,9 +174,11 @@
     <None Include="Imagens\procurar.png" />
     <None Include="Imagens\apagar.gif" />
     <None Include="Imagens\alterar.png" />
-    <Content Include="Imagens\buscar.ico" />
     <None Include="Imagens\novo.png" />
     <None Include="Imagens\cancela.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Imagens\icon-princ.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
