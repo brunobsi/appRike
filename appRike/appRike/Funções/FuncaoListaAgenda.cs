@@ -64,7 +64,9 @@ namespace appRike.Funções
             string horario;
             dt.Clear();
 
-            listAll = listAll.OrderBy(x => x.Horario.Ordem).ThenBy(x => x.Horario.HoraInicial).ThenBy(x => x.Computador.Descricao).ToList();
+            listAll = listAll.OrderBy(x => x.Horario.Ordem)
+                .ThenBy(x => x.Horario.HoraInicial)
+                .ThenBy(x => x.Computador.Descricao).ToList();
 
             foreach (var item in listAll)
             {
