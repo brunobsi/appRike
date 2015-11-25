@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsultaHorarios));
             this.dgvHorarios = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHorario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHorarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,32 +49,14 @@
             this.dgvHorarios.Location = new System.Drawing.Point(27, 77);
             this.dgvHorarios.Name = "dgvHorarios";
             this.dgvHorarios.ReadOnly = true;
-            this.dgvHorarios.Size = new System.Drawing.Size(443, 252);
+            this.dgvHorarios.Size = new System.Drawing.Size(438, 343);
             this.dgvHorarios.TabIndex = 19;
             this.dgvHorarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHorarios_CellDoubleClick);
-            // 
-            // Id
-            // 
-            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // colHorario
-            // 
-            this.colHorario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colHorario.DataPropertyName = "Horario";
-            this.colHorario.HeaderText = "Horario";
-            this.colHorario.Name = "colHorario";
-            this.colHorario.ReadOnly = true;
-            this.colHorario.Width = 400;
             // 
             // btnBuscar
             // 
             this.btnBuscar.Image = global::appRike.Properties.Resources.procurar;
-            this.btnBuscar.Location = new System.Drawing.Point(435, 32);
+            this.btnBuscar.Location = new System.Drawing.Point(432, 30);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(33, 23);
             this.btnBuscar.TabIndex = 22;
@@ -94,15 +76,32 @@
             // 
             this.txtDescricao.Location = new System.Drawing.Point(75, 32);
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(354, 20);
+            this.txtDescricao.Size = new System.Drawing.Size(351, 20);
             this.txtDescricao.TabIndex = 20;
             this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
+            // 
+            // Id
+            // 
+            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // colHorario
+            // 
+            this.colHorario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colHorario.DataPropertyName = "Horario";
+            this.colHorario.HeaderText = "Horario";
+            this.colHorario.Name = "colHorario";
+            this.colHorario.ReadOnly = true;
             // 
             // ConsultaHorarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 339);
+            this.ClientSize = new System.Drawing.Size(492, 432);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDescricao);
@@ -120,10 +119,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvHorarios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHorario;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDescricao;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHorario;
     }
 }
