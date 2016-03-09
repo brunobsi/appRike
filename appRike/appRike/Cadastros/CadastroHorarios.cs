@@ -144,7 +144,7 @@ namespace appRike.Cadastros
                 if (iCodigo > 0)
                 {
                     objHorario = horarioApp.GetById(iCodigo);
-                    if (horarioApp.Excluir(objHorario))
+                    if (horarioApp.Excluir(objHorario.Id))
                     {
                         EstadoInicial();
                         AlterarMsg("Excluido com sucesso!", false);

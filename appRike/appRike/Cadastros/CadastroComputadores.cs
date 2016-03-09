@@ -121,7 +121,7 @@ namespace appRike.Cadastros
                 if (iCodigo > 0)
                 {
                     objComputador = computadorApp.GetById(iCodigo);
-                    if (computadorApp.Excluir(objComputador))
+                    if (computadorApp.Excluir(objComputador.Id))
                     {
                         EstadoInicial();
                         AlterarMsg("Excluido com sucesso!", false);

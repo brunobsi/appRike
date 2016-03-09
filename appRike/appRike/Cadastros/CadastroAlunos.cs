@@ -121,7 +121,7 @@ namespace appRike.Cadastros
                 if (iCodigo > 0)
                 {
                     objAluno = alunoApp.GetById(iCodigo);
-                    if (alunoApp.Excluir(objAluno))
+                    if (alunoApp.Excluir(objAluno.Id))
                     {
                         EstadoInicial();
                         AlterarMsg("Excluido com sucesso!", false);
