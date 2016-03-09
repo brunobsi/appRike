@@ -1,5 +1,6 @@
 ﻿using appRike.Cadastros;
 using appRike.Funções;
+using appRike.IoC;
 using Infra.Servicos;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,10 @@ namespace appRike
 {
     public partial class TelaInicial : Form
     {
+        private ModuloNinject ninject = new ModuloNinject();
+
         public TelaInicial()
-        {
+        {           
             InitializeComponent();
         }
 
@@ -40,7 +43,7 @@ namespace appRike
 
         private void agendaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var tela = new FuncaoListaAgenda();
+            var tela = new FuncaoListaAgenda(ninject.InstanciaServicoAgenda());
             tela.ShowDialog();
         }
     }

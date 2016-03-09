@@ -1,0 +1,47 @@
+﻿@model BNR_ComputerClass.Models.HorarioModel
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Você tem certeza que deseja apagar esse horário?</h3>
+<div>
+    <h4>Horário</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Dia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraFinal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraFinal)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+        </div>
+    }
+</div>
