@@ -37,7 +37,7 @@ namespace appRike.Consultas
         public void CarregaHorarios()
         {
             horarioApp = new ServicoDeHorario();
-            listAll = horarioApp.GetAll().OrderBy(x => x.Ordem).ToList();
+            listAll = horarioApp.GetAll().ToList();
             MontarDataTable();
             horarioApp.Dispose();
         }
@@ -45,7 +45,8 @@ namespace appRike.Consultas
         public void PesquisaHorario(string descricao)
         {
             horarioApp = new ServicoDeHorario();
-            listAll = horarioApp.Get(x => x.Dia.ToUpper().Contains(descricao.ToUpper())).OrderBy(x => x.Dia).ToList();
+            listAll = horarioApp.Get(x => x.Dia.ToUpper().Contains(descricao.ToUpper()));
+
             MontarDataTable();
             horarioApp.Dispose();
         }
@@ -54,6 +55,8 @@ namespace appRike.Consultas
         {
             string horario;
             dt.Clear();
+
+            listAll = listAll.OrderBy(x => x.Ordem).ThenBy(x => x.HoraFinal).ToList();
 
             foreach (var item in listAll)
             {                

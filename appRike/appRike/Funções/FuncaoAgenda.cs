@@ -80,6 +80,9 @@ namespace appRike.Funções
             string descricao;
             horarioApp = new ServicoDeHorario();
             var list = horarioApp.GetAll();
+            list = list.OrderBy(x => x.Ordem)
+                   .ThenBy(x => x.HoraInicial)
+                   .ToList();
 
             if (list != null && list.Count > 0)
             {
