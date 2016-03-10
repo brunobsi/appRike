@@ -6,48 +6,28 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infra.Servicos
 {
     public class ServicoDeAgenda : IServicoDeAgenda
     {
-        private List<DateTime> HorariosFixos;
-        private DbContexto Db = new DbContexto();
-
-        public ServicoDeAgenda()
-        {
-            Inicializar();
-        }
-
-        public void Inicializar()
-        {
-            HorariosFixos = new List<DateTime>();
-
-            HorariosFixos.Add(DateTime.ParseExact("08:00", "H:m", null));
-            HorariosFixos.Add(DateTime.ParseExact("09:00", "H:m", null));
-            HorariosFixos.Add(DateTime.ParseExact("10:00", "H:m", null));
-            HorariosFixos.Add(DateTime.ParseExact("14:00", "H:m", null));
-            HorariosFixos.Add(DateTime.ParseExact("15:00", "H:m", null));
-            HorariosFixos.Add(DateTime.ParseExact("16:00", "H:m", null));
-        }
+        private readonly DbContexto _db = new DbContexto();
 
         public bool Adicionar(Agenda agenda)
         {
-            Db.Agendas.Add(agenda);
-            return Db.SaveChanges() > 0;
+            _db.Agendas.Add(agenda);
+            return _db.SaveChanges() > 0;
         }
 
         public bool Excluir(Agenda agenda)
         {
-            Db.Agendas.Remove(agenda);
-            return Db.SaveChanges() > 0;
+            _db.Agendas.Remove(agenda);
+            return _db.SaveChanges() > 0;
         }
 
         public Agenda GetById(int id)
         {
-            return Db.Set<Agenda>().Find(id);
+            return _db.Set<Agenda>().Find(id);
         }
 
         public List<Agenda> Get(Func<Agenda, bool> filtro, params string[] predicate)
@@ -57,15 +37,9 @@ namespace Infra.Servicos
 
         public List<Agenda> GetAll(params string[] predicate)
         {
-            IQueryable<Agenda> query = Db.Set<Agenda>();
-
+            IQueryable<Agenda> query = _db.Set<Agenda>();
             query.Include("Horario");
-
-            foreach (var item in predicate)
-            {
-                query = query.Include(item);
-            }
-
+            query = predicate.Aggregate(query, (current, item) => current.Include(item));
             return query.OrderBy(x => x.Horario.Ordem).ToList();
         }
 
@@ -74,47 +48,45 @@ namespace Infra.Servicos
             var result = !Get(x => x.HorarioId.Equals(agenda.HorarioId)
                           && x.ComputadorId.Equals(agenda.ComputadorId)).Any();
 
-            if (result)
+            if (!result) return false;
+            var horario = _db.Horarios.First(x => x.Id.Equals(agenda.HorarioId));
+            var datas = Get(x => x.ComputadorId.Equals(agenda.ComputadorId) &&
+                                 x.Horario.Dia.Equals(Converter.RemoverAcentos(horario.Dia)), "Horario");
+
+            foreach (var item in datas)
             {
-                var horario = Db.Horarios.First(x => x.Id.Equals(agenda.HorarioId));
-                var datas = Get(x => x.ComputadorId.Equals(agenda.ComputadorId) &&
-                                     x.Horario.Dia.Equals(Converter.RemoverAcentos(horario.Dia)), "Horario");
+                var horaBanco = DateTime.ParseExact(item.Horario.HoraInicial, "H:m", null).Hour;
+                var horaBanco2 = DateTime.ParseExact(item.Horario.HoraFinal, "H:m", null).Hour;
+                var intervaloBanco = horaBanco2 - horaBanco;
 
-                foreach (var item in datas)
+                for (var i = 0; i < intervaloBanco && result; i++)
                 {
-                    var HoraBanco = DateTime.ParseExact(item.Horario.HoraInicial, "H:m", null).Hour;
-                    var HoraBanco2 = DateTime.ParseExact(item.Horario.HoraFinal, "H:m", null).Hour;
-                    var IntervaloBanco = HoraBanco2 - HoraBanco;
+                    var horaAgenda = DateTime.ParseExact(horario.HoraInicial, "H:m", null).Hour;
+                    var horaAgenda2 = DateTime.ParseExact(horario.HoraFinal, "H:m", null).Hour;
+                    var intervaloAgenda = horaAgenda2 - horaAgenda;
 
-                    for (int i = 0; i < IntervaloBanco && result; i++)
+                    for (var j = 0; j < intervaloAgenda && result; j++)
                     {
-                        var HoraAgenda = DateTime.ParseExact(horario.HoraInicial, "H:m", null).Hour;
-                        var HoraAgenda2 = DateTime.ParseExact(horario.HoraFinal, "H:m", null).Hour;
-                        var IntervaloAgenda = HoraAgenda2 - HoraAgenda;
-
-                        for (int j = 0; j < IntervaloAgenda && result; j++)
+                        if (horaBanco.Equals(horaAgenda))
                         {
-                            if (HoraBanco.Equals(HoraAgenda))
-                            {
-                                result = false;
-                            }
-
-                            HoraAgenda++;
+                            result = false;
                         }
 
-                        HoraBanco++;
+                        horaAgenda++;
                     }
 
-                    if (!result)
-                        break;
+                    horaBanco++;
                 }
+
+                if (!result)
+                    break;
             }
             return result;
         }
 
         public void Dispose()
         {
-            Db.Dispose();
+            _db.Dispose();
         }  
     }
 }

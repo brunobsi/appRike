@@ -1,0 +1,37 @@
+﻿@model BNR_ComputerClass.Models.AulaModel
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Você tem certeza que deseja apagar essa aula?</h3>
+<div>
+    <h4>Aula</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+             @Html.DisplayFor(model => model.Data)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AlunosPresentes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AlunosPresentes)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </div>
+    }
+</div>

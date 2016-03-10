@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using AutoMapper;
+﻿using AutoMapper;
 using BNR_ComputerClass.Models;
 using Dominio.Entidades;
 
@@ -21,6 +17,8 @@ namespace BNR_ComputerClass.AutoMapper
             Mapper.CreateMap<ComputadorModel, Computador>();
             Mapper.CreateMap<AlunoModel, Aluno>();
             Mapper.CreateMap<AgendaModel, Agenda>();
+            Mapper.CreateMap<AulaModel, Aula>();
+            Mapper.CreateMap<ChamadaModel, Chamada>();
         }
     }
 }

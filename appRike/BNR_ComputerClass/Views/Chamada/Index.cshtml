@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BNR_ComputerClass.Models.AulaModel>
+
+@{
+    ViewBag.Title = "Aulas";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Realizar Chamada (" + (string)@ViewBag.DataHoje + ")", "Create", null, new { @class = "btn btn-info" })
+</p>
+
+@if (Model.Any())
+{
+
+    <table class="table">
+        <tr >
+            <th class="col-md-9">
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th class="col-md-3"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.ActionLink("Alterar Chamada", "Edit", new {id = item.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Apagar Aula", "Delete", new {id = item.Id}, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <hr />
+    <h4>
+        - Nenhuma aula cadastrada até o momento!
+    </h4>
+}

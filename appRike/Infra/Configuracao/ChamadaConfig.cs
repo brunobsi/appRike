@@ -4,11 +4,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Infra.Configuracao
 {
-    public class HorarioConfig : EntityTypeConfiguration<Horario>
+    public class ChamadaConfig : EntityTypeConfiguration<Chamada>
     {
-        public HorarioConfig()
+        public ChamadaConfig()
         {
-            ToTable("Horarios");
+            ToTable("Chamadas");
             HasKey(e => new { e.Id });
 
             Property(e => e.Id)

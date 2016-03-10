@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Novo", "Create")
+    @Html.ActionLink("Novo", "Create", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
@@ -35,7 +35,7 @@
             @Html.DisplayFor(modelItem => item.HoraFinal)
         </td>
         <td>
-            @Html.ActionLink("Alterar", "Edit", new { id = item.Id }, new {@class = "btn btn-primary"})
+            @Html.ActionLink("Alterar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
             @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
         </td>
     </tr>

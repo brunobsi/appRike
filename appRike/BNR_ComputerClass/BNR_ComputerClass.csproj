@@ -169,7 +169,9 @@
     <Compile Include="AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
+    <Compile Include="Controllers\AulaController.cs" />
     <Compile Include="Controllers\Autentication\AccountController.cs" />
+    <Compile Include="Controllers\ChamadaController.cs" />
     <Compile Include="Controllers\ComputadorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Autentication\ManageController.cs" />
@@ -180,9 +182,11 @@
     <Compile Include="IoC\ModuloNinject.cs" />
     <Compile Include="Models\AgendaModel.cs" />
     <Compile Include="Models\AlunoModel.cs" />
+    <Compile Include="Models\AulaModel.cs" />
     <Compile Include="Models\Autentication\AccountViewModels.cs" />
     <Compile Include="Models\Autentication\IdentityModels.cs" />
     <Compile Include="Models\Autentication\ManageViewModels.cs" />
+    <Compile Include="Models\ChamadaModel.cs" />
     <Compile Include="Models\ComputadorModel.cs" />
     <Compile Include="Models\HorarioModel.cs" />
     <Compile Include="Models\IdentificadorModel.cs" />
@@ -190,12 +194,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\chamada.js" />
+    <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -257,9 +264,14 @@
     <Content Include="Views\Horario\Create.cshtml" />
     <Content Include="Views\Horario\Edit.cshtml" />
     <Content Include="Views\Horario\Delete.cshtml" />
+    <Content Include="Views\Chamada\Index.cshtml" />
+    <Content Include="Views\Chamada\Delete.cshtml" />
+    <Content Include="Views\Chamada\Create.cshtml" />
+    <Content Include="Views\Chamada\_Alunos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Aula\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

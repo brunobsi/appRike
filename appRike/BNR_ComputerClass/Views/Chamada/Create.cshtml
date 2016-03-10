@@ -1,0 +1,44 @@
+﻿@using BNR_ComputerClass.Models
+@model AulaModel
+
+@{
+    ViewBag.Title = "Realizar Chamada";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Chamada", FormMethod.Post, new { @id = "formCreate" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <b> @ViewBag.DataHoje</b>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Horários", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Horarios", (SelectList)ViewBag.Horarios, new { @class = "form-control" })
+            </div>
+        </div>
+        
+        @Html.HiddenFor(model => model.AgendasId)
+
+        <div id="divAgendas" class="espaco-top-5px">
+            @Html.Partial("_Alunos", Model.ChamadasModel)
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+                <input id="btnCreate" type="button" value="Salvar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/app/chamada.js")
+}

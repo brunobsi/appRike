@@ -1,0 +1,26 @@
+﻿@using BNR_ComputerClass.Models
+@model List<ChamadaModel>
+
+<table class="table">
+    <tr>
+        <th class="col-md-10">
+            @Html.DisplayNameFor(model => model.First().Agenda.Aluno)
+        </th>
+        <th class="col-md-2">
+        </th>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Agenda.Aluno.Nome)
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.Presenca, new { @id = "itemPresenca" + item.AgendaId })
+            </td>
+        </tr>
+    }
+</table>
+
+

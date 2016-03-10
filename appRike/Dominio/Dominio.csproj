@@ -41,6 +41,10 @@
   <ItemGroup>
     <Compile Include="Entidades\Agenda.cs" />
     <Compile Include="Entidades\Aluno.cs" />
+    <Compile Include="Entidades\Aula.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entidades\Chamada.cs" />
     <Compile Include="Entidades\Computador.cs" />
     <Compile Include="Entidades\Horario.cs" />
     <Compile Include="Entidades\Identificador.cs" />

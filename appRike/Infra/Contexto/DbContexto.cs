@@ -14,6 +14,8 @@ namespace Infra.Contexto
         public DbSet<Computador> Computadores { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public virtual DbSet<Agenda> Agendas { get; set; }
+        public DbSet<Aula> Aulas { get; set; }
+        public virtual DbSet<Chamada> Chamadas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -28,6 +30,8 @@ namespace Infra.Contexto
             modelBuilder.Configurations.Add(new ComputadorConfig());
             modelBuilder.Configurations.Add(new HorarioConfig());
             modelBuilder.Configurations.Add(new AgendaConfig());
+            modelBuilder.Configurations.Add(new AulaConfig());
+            modelBuilder.Configurations.Add(new ChamadaConfig());
         }
     }
 }

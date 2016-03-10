@@ -17,6 +17,8 @@ namespace BNR_ComputerClass.AutoMapper
             Mapper.CreateMap<Computador, ComputadorModel>();
             Mapper.CreateMap<Aluno, AlunoModel>();
             Mapper.CreateMap<Agenda, AgendaModel>();
+            Mapper.CreateMap<Aula, AulaModel>();
+            Mapper.CreateMap<Chamada, ChamadaModel>();
         }
     }
 }

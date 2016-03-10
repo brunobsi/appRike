@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Configuracao\AgendaConfig.cs" />
     <Compile Include="Configuracao\AlunoConfig.cs" />
+    <Compile Include="Configuracao\AulaConfig.cs" />
+    <Compile Include="Configuracao\ChamadaConfig.cs" />
     <Compile Include="Configuracao\ComputadorConfig.cs" />
     <Compile Include="Configuracao\HorarioConfig.cs" />
     <Compile Include="Contexto\DbContexto.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicos\ServicoDeAgenda.cs" />
     <Compile Include="Servicos\ServicoDeAluno.cs" />
+    <Compile Include="Servicos\ServicoDeAula.cs" />
+    <Compile Include="Servicos\ServicoDeChamada.cs" />
     <Compile Include="Servicos\ServicoDeComputador.cs" />
     <Compile Include="Servicos\ServicoDeHorario.cs" />
   </ItemGroup>
