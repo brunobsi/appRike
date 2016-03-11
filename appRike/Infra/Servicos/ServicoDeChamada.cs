@@ -18,6 +18,14 @@ namespace Infra.Servicos
 
         public bool Adicionar(Chamada chamada)
         {
+            var hoje = DateTime.Now;
+            var aula = _db.Aulas.FirstOrDefault(x => x.DataAula.Day == hoje.Day && x.DataAula.Month == hoje.Month && x.DataAula.Year == hoje.Year) ??
+                       _db.Aulas.Add(new Aula
+            {
+                DataAula = hoje
+            });
+
+            chamada.AulaId = aula.Id;
             _db.Chamadas.Add(chamada);
             return _db.SaveChanges() > 0;
         }

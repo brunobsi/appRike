@@ -71,8 +71,7 @@ namespace BNR_ComputerClass.Controllers
             try
             {
                 var chamada = Mapper.Map<Chamada>(chamadaModel);
-                _servicoDeChamada.Adicionar(chamada);
-                return Json(true);
+                return Json( _servicoDeChamada.Adicionar(chamada));
             }
             catch
             {
