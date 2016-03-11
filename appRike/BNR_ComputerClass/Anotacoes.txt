@@ -1,0 +1,2 @@
+﻿- Verificar para não salvar na mesma aula a mesma Agenda (Turma).
+- Codificar o alterar chamada.
