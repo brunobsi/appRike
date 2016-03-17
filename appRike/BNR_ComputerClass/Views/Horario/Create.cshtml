@@ -1,4 +1,4 @@
-﻿@model BNR_ComputerClass.Models.HorarioModel
+﻿@model BNR_ComputerClass.Models.AgendaModel
 
 @{
     ViewBag.Title = "Cadastro";
@@ -7,50 +7,63 @@
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Horário</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Dia, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Dia, (SelectList)ViewBag.Dias, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Dia, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.Aluno, new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.AlunoId, (SelectList)ViewBag.Alunos,
+                 new { @class = "form-control campoFirst select2", @style = "max-width: 500px" })
+            </div>
+            @Html.LabelFor(model => model.Computador, new { @class = "control-label col-md-1" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.ComputadorId, (SelectList)ViewBag.Computadores,
+                new { @class = "form-control select2", @style = "max-width: 500px" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Horario.Dia, new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.Horario.Dia, (SelectList)ViewBag.Dias, new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.Horario.Dia, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Horario.HoraInicial, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownListFor(x => Model.Horario.HoraInicial, (SelectList)ViewBag.HorariosIni, new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.Horario.HoraInicial, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Horario.HoraFinal, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.DropDownListFor(x => Model.Horario.HoraFinal, (SelectList)ViewBag.HorariosFim, new { @class = "form-control select2" })
+                @Html.ValidationMessageFor(model => model.Horario.HoraFinal, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HoraInicial, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(x => Model.HoraInicial, (SelectList)ViewBag.HorariosIni, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HoraInicial, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoraFinal, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(x => Model.HoraFinal, (SelectList)ViewBag.HorariosFim, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HoraFinal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-1 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
-
 <div>
     @Html.ActionLink("Voltar", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/select2")
+
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2();
+        });
+    </script>
 }

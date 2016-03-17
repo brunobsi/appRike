@@ -169,7 +169,6 @@
     <Compile Include="AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
-    <Compile Include="Controllers\AulaController.cs" />
     <Compile Include="Controllers\Autentication\AccountController.cs" />
     <Compile Include="Controllers\ChamadaController.cs" />
     <Compile Include="Controllers\ComputadorController.cs" />
@@ -198,11 +197,15 @@
     <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\select2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\app\chamada.js" />
+    <Content Include="Scripts\app\chamada\create.js" />
+    <Content Include="Scripts\app\chamada\edit.js" />
+    <Content Include="Scripts\app\create.js" />
+    <Content Include="Scripts\app\index.js" />
     <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -217,8 +220,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -269,10 +275,11 @@
     <Content Include="Views\Chamada\Delete.cshtml" />
     <Content Include="Views\Chamada\Create.cshtml" />
     <Content Include="Views\Chamada\_Alunos.cshtml" />
+    <Content Include="Views\Chamada\Edit.cshtml" />
+    <Content Include="Views\Horario\_Alunos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Aula\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

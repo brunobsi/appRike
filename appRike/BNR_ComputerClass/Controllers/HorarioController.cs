@@ -11,6 +11,9 @@ namespace BNR_ComputerClass.Controllers
     public class HorarioController : Controller
     {
         private readonly ServicoDeHorario _servicoDeHorario = new ServicoDeHorario();
+        private readonly ServicoDeComputador _servicoDeComputador = new ServicoDeComputador();
+        private readonly ServicoDeAluno _servicoDeAluno = new ServicoDeAluno();
+        private readonly ServicoDeAgenda _servicoDeAgenda = new ServicoDeAgenda();
         private readonly List<string> _listDias, _listHorariosIni, _listHorariosFim;
 
         public HorarioController()
@@ -28,7 +31,7 @@ namespace BNR_ComputerClass.Controllers
             _listHorariosFim = new List<string>
             {
                 "09:00", "10:00","11:00","15:00","16:00","17:00",
-            };  
+            };
         }
 
         private void InitSelects()
@@ -36,11 +39,13 @@ namespace BNR_ComputerClass.Controllers
             ViewBag.Dias = new SelectList(_listDias, 0);
             ViewBag.HorariosIni = new SelectList(_listHorariosIni, 0);
             ViewBag.HorariosFim = new SelectList(_listHorariosFim, 0);
+            ViewBag.Computadores = new SelectList(_servicoDeComputador.GetAll(), "Id", "Descricao", 0);
+            ViewBag.Alunos = new SelectList(_servicoDeAluno.GetAll(), "Id", "Nome", 0);
         }
 
         public ActionResult Index()
         {
-            var list = Mapper.Map<List<HorarioModel>>(_servicoDeHorario.GetAll());
+            var list = Mapper.Map<List<AgendaModel>>(_servicoDeAgenda.GetAll("Horario", "Aluno", "Computador"));
             return View(list);
         }
 
@@ -51,12 +56,14 @@ namespace BNR_ComputerClass.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(HorarioModel model)
+        public ActionResult Create(AgendaModel model)
         {
             try
             {
-                var horario = Mapper.Map<Horario>(model);
-                _servicoDeHorario.Adicionar(horario);
+                var agenda = Mapper.Map<Agenda>(model);
+                _servicoDeHorario.Adicionar(agenda.Horario);
+                agenda.HorarioId = agenda.Horario.Id;
+                _servicoDeAgenda.Adicionar(agenda);
                 return RedirectToAction("Index");
             }
             catch

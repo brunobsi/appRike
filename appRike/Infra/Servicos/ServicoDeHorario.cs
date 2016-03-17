@@ -18,16 +18,12 @@ namespace Infra.Servicos
             _db = new DbContexto();
         }
 
-        public bool Adicionar(Horario horario)
+        public void Adicionar(Horario horario)
         {
-            if (!VerificaExistente(horario))
-            {
-                VerificaOrdem(horario);
-                _db.Horarios.Add(horario);
-                return _db.SaveChanges() > 0;
-            }
-
-            return false;
+            if (VerificaExistente(horario)) return;
+            VerificaOrdem(horario);
+            _db.Horarios.Add(horario);
+            _db.SaveChanges();
         }
 
         public bool Alterar(Horario horario)
@@ -56,12 +52,7 @@ namespace Infra.Servicos
         public List<Horario> GetAll(params string[] predicate)
         {
             IQueryable<Horario> query = _db.Set<Horario>();
-
-            foreach (var item in predicate)
-            {
-                query = query.Include(item);
-            }
-
+            query = predicate.Aggregate(query, (current, item) => current.Include(item));
             return query.OrderBy(x => x.Ordem).ToList(); ;
         }
 
@@ -78,7 +69,9 @@ namespace Infra.Servicos
         }
         public bool VerificaExistente(Horario horario)
         {
-            var horarioBanco = Get(x => x.Dia.Equals(horario.Dia) && x.HoraInicial.Equals(horario.HoraInicial) && x.HoraFinal.Equals(horario.HoraFinal));
+            var horarioBanco = Get(x => x.Dia.Equals(horario.Dia) &&
+                                        x.HoraInicial.Equals(horario.HoraInicial) &&
+                                        x.HoraFinal.Equals(horario.HoraFinal));
             return horarioBanco.Any();
         }
 

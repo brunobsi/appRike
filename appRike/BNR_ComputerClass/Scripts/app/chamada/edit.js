@@ -4,50 +4,47 @@ $(document).ready(function () {
 
     $("#Horarios").change(function () {
         $.ajax({
-            url: baseUrl + "/Chamada/AlteraAgendas?horarioId=" + $("#Horarios").val(),
+            url: baseUrl + "/Chamada/AtualizaAgendasEdit?horarioId=" + $("#Horarios").val() + "&aulaId=" + $("#Id").val(),
             type: "GET",
         })
             .done(function (result) {
                 $("#divAgendas").html(result);
+                changeCheckbox();
                 bootstrapToggle();
             });
     });
 
-    $("#btnCreate").click(function () {
+    $("#btnEdit").click(function () {
         var erro = false;
         var agendasId = $("#AgendasId").val().split(',');
 
         for (var i = 0; i < agendasId.length && !erro; i++) {
             var obj = {};
-            obj.agendaId = agendasId[i];
-            obj.presenca = $("#itemPresenca" + agendasId[i]).val();
+            var agendaId = agendasId[i];
+            obj.id = $("#chamadaId" + agendaId).val();
+            obj.presenca = $("#itemPresenca" + agendaId).val();
 
             $.ajax({
-                url: baseUrl + "/Chamada/Create",
+                url: baseUrl + "Chamada/Edit",
                 data: obj,
                 type: "POST",
+                async: false
             })
             .done(function (result) {
                 if (!result) {
                     erro = true;
-                } 
+                }
             });
         }
 
         if (erro) {
-            alert("Ocorreu erros na gravação da chamada!");
+            alert("Ocorreu erros na alteração da chamada!");
         } else {
-            window.location = baseUrl + "/Chamada/Index";
+            window.location = "/Chamada/Index";
         }
-        
-
     });
 
-    $(":checkbox").change(function () {
-        var valor = $("#" + this.id).val() == "false" ? false : true;
-        $("#" + this.id).val(!valor);
-    });
-
+    changeCheckbox();
     bootstrapToggle();
 });
 
@@ -59,4 +56,9 @@ function bootstrapToggle() {
     });
 }
 
-
+function changeCheckbox() {
+    $(":checkbox").change(function () {
+        var valor = $("#itemPresenca" + this.id).val().toLowerCase() == "false" ? false : true;
+        $("#itemPresenca" + this.id).val(!valor);
+    });
+}

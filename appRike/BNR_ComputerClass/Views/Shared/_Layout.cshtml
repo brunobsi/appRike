@@ -21,7 +21,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
-    
+
+
     <script type="text/javascript">
         var urlBase = '@baseUrl';
     </script>
@@ -58,6 +59,7 @@
         </footer>
     </div>
 
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/padrao")
+    @RenderSection("scripts", false)
 </body>
 </html>

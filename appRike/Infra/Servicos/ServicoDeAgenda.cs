@@ -15,6 +15,9 @@ namespace Infra.Servicos
 
         public bool Adicionar(Agenda agenda)
         {
+            agenda.Horario = null; 
+            agenda.Computador = null; 
+            agenda.Aluno = null;
             _db.Agendas.Add(agenda);
             return _db.SaveChanges() > 0;
         }
@@ -39,8 +42,12 @@ namespace Infra.Servicos
         {
             IQueryable<Agenda> query = _db.Set<Agenda>();
             query.Include("Horario");
+            query.Include("Computador");
             query = predicate.Aggregate(query, (current, item) => current.Include(item));
-            return query.OrderBy(x => x.Horario.Ordem).ToList();
+            return query.OrderBy(x => x.Horario.Ordem)
+                        .ThenBy(x => x.Horario.HoraInicial)
+                        .ThenBy(x => x.Computador.Descricao)
+                        .ToList();
         }
 
         public bool VerificarSePodeAgendar(Agenda agenda)
@@ -71,10 +78,8 @@ namespace Infra.Servicos
                         {
                             result = false;
                         }
-
                         horaAgenda++;
                     }
-
                     horaBanco++;
                 }
 

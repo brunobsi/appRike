@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using BNR_ComputerClass.Models;
 using Infra.Servicos;
+using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
 using Dominio.Entidades;
 
@@ -16,12 +17,27 @@ namespace BNR_ComputerClass.Controllers
         private readonly ServicoDeChamada _servicoDeChamada = new ServicoDeChamada();
         private readonly ServicoDeAgenda _servicoDeAgenda = new ServicoDeAgenda();
 
-        private int InitSelects()
+        private int InitSelectHorario(int aulaId = 0)
         {
-            var horarios = _servicoDeAgenda.GetAll("Horario").Select(x => x.Horario).Distinct().ToList();
-            var horariosModel = Mapper.Map<List<HorarioModel>>(horarios);
-            horariosModel.ForEach(x => x.MontaHorarioSelect());
+            var aulaHoje = _servicoDeChamada.GetAulaPorData(DateTime.Now);
+            var chamadasCadastradas = aulaHoje != null ?
+                _servicoDeChamada.Get(x => x.AulaId == aulaHoje.Id, "Agenda").Select(x => x.Agenda).Distinct() :
+                 new List<Agenda>();
+
+            IEnumerable<Agenda> agendas;
+
+            if (aulaId != 0)
+                agendas = _servicoDeChamada.Get(x => x.AulaId == aulaId, "Agenda.Horario").Select(x => x.Agenda).Distinct();
+            else
+            {
+                agendas = _servicoDeAgenda.GetAll("Horario");
+                var remove = chamadasCadastradas.Select(item => agendas.First(x => x.Id == item.Id)).ToList();
+                agendas = agendas.Except(remove);
+            }
+
+            var horariosModel = Mapper.Map<List<HorarioModel>>(agendas.Select(x => x.Horario).Distinct().ToList());
             ViewBag.Horarios = new SelectList(horariosModel, "Id", "HorarioSelect", 0);
+
             var firstOrDefault = horariosModel.FirstOrDefault();
             return firstOrDefault != null ? firstOrDefault.Id : 0;
         }
@@ -39,6 +55,11 @@ namespace BNR_ComputerClass.Controllers
             return listaChamadas;
         }
 
+        private List<ChamadaModel> RetornaChamadasEdit(int horarioId, int aulaId)
+        {
+            return Mapper.Map<List<ChamadaModel>>(_servicoDeChamada.Get(x => x.AulaId == aulaId && x.Agenda.HorarioId == horarioId, "Agenda.Aluno"));
+        }
+
         public ActionResult Index()
         {
             var aulas = _servicoDeAula.GetAll();
@@ -48,7 +69,7 @@ namespace BNR_ComputerClass.Controllers
 
         public ActionResult Create()
         {
-            var horarioId = InitSelects();
+            var horarioId = InitSelectHorario();
             var aulaModel = new AulaModel
             {
                 DataAula = DateTime.Now,
@@ -59,10 +80,15 @@ namespace BNR_ComputerClass.Controllers
             return View(aulaModel);
         }
 
-        [Route("AlteraAgendas/{horarioId:int}"), HttpGet]
-        public ActionResult AlteraAgendas(int horarioId)
+        [Route("AtualizaAgendasCreate/{horarioId:int}"), HttpGet]
+        public ActionResult AtualizaAgendasCreate(int horarioId)
         {
-            return PartialView("_Alunos", RetornaChamadasCreate(horarioId));
+            var aulaModel = new AulaModel
+            {
+                ChamadasModel = RetornaChamadasCreate(horarioId)
+            };
+
+            return PartialView("_Alunos", aulaModel);
         }
 
         [HttpPost]
@@ -71,7 +97,42 @@ namespace BNR_ComputerClass.Controllers
             try
             {
                 var chamada = Mapper.Map<Chamada>(chamadaModel);
-                return Json( _servicoDeChamada.Adicionar(chamada));
+                return Json(_servicoDeChamada.Adicionar(chamada));
+            }
+            catch
+            {
+                return Json(false);
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var horarioId = InitSelectHorario(id);
+            var aula = _servicoDeAula.GetById(id);
+            var aulaModel = Mapper.Map<AulaModel>(aula);
+            aulaModel.ChamadasModel = RetornaChamadasEdit(horarioId, id);
+            return View(aulaModel);
+        }
+
+        [Route("AtualizaAgendasEdit/{horarioId:int}/{aulaId:int}"), HttpGet]
+        public ActionResult AtualizaAgendasEdit(int horarioId, int aulaId)
+        {
+            var aulaModel = new AulaModel
+            {
+                ChamadasModel = RetornaChamadasEdit(horarioId, aulaId)
+            };
+
+            return PartialView("_Alunos", aulaModel);
+        }
+
+        [HttpPost]
+        public JsonResult Edit(ChamadaModel chamadaModel)
+        {
+            try
+            {
+                var chamada = _servicoDeChamada.GetById(chamadaModel.Id);
+                chamada.Presenca = chamadaModel.Presenca;
+                return Json(_servicoDeChamada.Alterar(chamada));
             }
             catch
             {

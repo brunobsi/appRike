@@ -37,7 +37,7 @@ namespace BNR_ComputerClass.Models
                     AgendasId += item.AgendaId + ",";
                 }
 
-                AgendasId = AgendasId.Substring(0, AgendasId.Length - 1);
+                AgendasId = AgendasId != null ? AgendasId.Substring(0, AgendasId.Length - 1) : null;
             }
         }
 

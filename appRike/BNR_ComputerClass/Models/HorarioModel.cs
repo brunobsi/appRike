@@ -6,18 +6,11 @@ namespace BNR_ComputerClass.Models
     public class HorarioModel : IdentificadorModel
     {
         public string Dia { get; set; }
-        [DisplayName("Hora Inicial")]
+        [DisplayName("Inicio")]
         public string HoraInicial { get; set; }
-        [DisplayName("Hora Final")]
+        [DisplayName("Fim")]
         public string HoraFinal { get; set; }
-       
         public int Ordem { get; set; }
-
         public string HorarioSelect { get; set; }
-
-        public void MontaHorarioSelect()
-        {
-            HorarioSelect = Dia + " das " + HoraInicial + " às " + HoraFinal;
-        }
     }
 }
