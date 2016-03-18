@@ -2,14 +2,39 @@
 
 @{
     ViewBag.Title = "Horários";
+    var select = (SelectList)@TempData["Filtro"];
 }
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Novo", "Create", null, new { id = "btnNovo", @class = "btn btn-info" })
-</p>
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        <div class="col-md-3">
+            <div class="form-group">
+                &nbsp;&nbsp;&nbsp;
+                <label>
+                    @Html.RadioButton("TipoRadio", 1, true) Dia
+                    &nbsp;&nbsp;
+                </label>
+                <label>
+                    @Html.RadioButton("TipoRadio", 2) Aluno
+                    &nbsp;&nbsp;
+                </label>
 
- <div id="divAgendas" class="espaco-top-5px">
-    @Html.Partial("_Alunos", Model)
+                <label>
+                    @Html.RadioButton("TipoRadio", 3) Computador
+                    &nbsp;&nbsp;
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="espaco-top-5px" id="divAgendas">
+        <br />
+        @Html.Partial("_Alunos", Model)
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/horario/index")
+    }
 </div>

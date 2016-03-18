@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using Dominio.Tools;
 using Infra.Contexto;
 using System;
 using System.Collections.Generic;
@@ -72,7 +73,10 @@ namespace Infra.Servicos
             var horarioBanco = Get(x => x.Dia.Equals(horario.Dia) &&
                                         x.HoraInicial.Equals(horario.HoraInicial) &&
                                         x.HoraFinal.Equals(horario.HoraFinal));
-            return horarioBanco.Any();
+            var first = horarioBanco.FirstOrDefault();
+            if (first == null) return false;
+            horario.Id = first.Id;
+            return true;
         }
 
 

@@ -33,6 +33,12 @@ namespace BNR_ComputerClass
             bundles.Add(new ScriptBundle("~/bundles/padrao").Include(
                     "~/Scripts/app/index.js",
                     "~/Scripts/app/create.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/horario/index").Include(
+                    "~/Scripts/app/horario/index.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/horario/create").Include(
+                   "~/Scripts/app/horario/create.js"));
         }
     }
 }

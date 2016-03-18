@@ -1,4 +1,4 @@
-﻿@model BNR_ComputerClass.Models.HorarioModel
+﻿@model BNR_ComputerClass.Models.AgendaModel
 
 @{
     ViewBag.Title = "Excluir";
@@ -12,27 +12,41 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Dia)
+            @Html.DisplayNameFor(model => model.Aluno)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Dia)
+            @Html.DisplayFor(model => model.Aluno.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Computador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Computador.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Horario.Dia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Horario.Dia)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HoraInicial)
+            @Html.DisplayNameFor(model => model.Horario.HoraInicial)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HoraInicial)
+            @Html.DisplayFor(model => model.Horario.HoraInicial)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HoraFinal)
+            @Html.DisplayNameFor(model => model.Horario.HoraFinal)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.HoraFinal)
+            @Html.DisplayFor(model => model.Horario.HoraFinal)
         </dd>
     </dl>
 

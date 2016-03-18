@@ -1,50 +1,74 @@
 ﻿@using BNR_ComputerClass.Models
 @model  IEnumerable<AgendaModel>
 
+@{
+    var select = (SelectList)@TempData["Filtro"];
+}
 
-<table class="table">
-    <tr>
-        <th class="col-md-4">
-            @Html.DisplayNameFor(model => model.Aluno)
-        </th>
-        <th class="col-md-2">
-            @Html.DisplayNameFor(model => model.Computador)
-        </th>
-        <th class="col-md-2">
-            @Html.DisplayNameFor(model => model.Horario.Dia)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Horario.HoraInicial)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(model => model.Horario.HoraFinal)
-        </th>
-        <th class="col-md-2"></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if (select.Any())
+{
+    <div class="form-group">
+        <div class="col-md-3">
+            @Html.DropDownList("Select", select, new { @class = "form-control campoFirst" })
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Novo", "Create", null, new { id = "btnNovo", @class = "btn btn-info" })
+        </div>
+    </div>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Aluno.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Computador.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horario.Dia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horario.HoraInicial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horario.HoraFinal)
-            </td>
-            <td>
-                @Html.ActionLink("Alterar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" })
-                @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
+            <th class="col-md-4">
+                @Html.DisplayNameFor(model => model.Aluno)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Computador)
+            </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.Horario.Dia)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Horario.HoraInicial)
+            </th>
+            <th class="col-md-1">
+                @Html.DisplayNameFor(model => model.Horario.HoraFinal)
+            </th>
+            <th class="col-md-2"></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aluno.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Computador.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horario.Dia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horario.HoraInicial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horario.HoraFinal)
+                </td>
+                <td>
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>- Não existe nenhum horário agendado no sistema.</p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/horario/index")
+}
+
+
+
+

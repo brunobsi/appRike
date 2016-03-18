@@ -1,5 +1,9 @@
 ﻿- Verificar para não salvar na mesma aula a mesma Agenda (Turma). (OK)
 - Codificar o alterar chamada. (OK)
 
-- Alterar o agendar horários para cadastrar a agenda juntamente com o horário. 
+- Alterar o agendar horários para cadastrar a agenda juntamente com o horário(OK). 
 - Implementar select2 (OK)
+
+- Implementar Exibicao da agenda por aluno. (ok)
+- Exclusão agenda e horario. (ok)
+- Sugestão de horario (ok)

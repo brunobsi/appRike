@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Realizar Chamada";
     var horarios = (SelectList) ViewBag.Horarios;
+   
 }
 
 <h2>@ViewBag.Title</h2>
@@ -11,12 +12,11 @@
 @using (Html.BeginForm("Create", "Chamada", FormMethod.Post, new { @id = "formCreate" }))
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
         <b> @ViewBag.DataHoje</b>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+      
         @if (horarios.Any())
         {
             <div class="form-group">

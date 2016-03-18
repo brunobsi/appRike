@@ -28,6 +28,12 @@ namespace Infra.Servicos
             return _db.SaveChanges() > 0;
         }
 
+        public bool ExcluirPorId(int id)
+        {
+            var agenda = GetById(id);
+            return Excluir(agenda);
+        }
+
         public Agenda GetById(int id)
         {
             return _db.Set<Agenda>().Find(id);
@@ -58,7 +64,7 @@ namespace Infra.Servicos
             if (!result) return false;
             var horario = _db.Horarios.First(x => x.Id.Equals(agenda.HorarioId));
             var datas = Get(x => x.ComputadorId.Equals(agenda.ComputadorId) &&
-                                 x.Horario.Dia.Equals(Converter.RemoverAcentos(horario.Dia)), "Horario");
+                                 x.Horario.Dia.Equals(horario.Dia), "Horario");
 
             foreach (var item in datas)
             {

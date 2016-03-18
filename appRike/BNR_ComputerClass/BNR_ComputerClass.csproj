@@ -205,6 +205,8 @@
     <Content Include="Scripts\app\chamada\create.js" />
     <Content Include="Scripts\app\chamada\edit.js" />
     <Content Include="Scripts\app\create.js" />
+    <Content Include="Scripts\app\horario\create.js" />
+    <Content Include="Scripts\app\horario\index.js" />
     <Content Include="Scripts\app\index.js" />
     <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
