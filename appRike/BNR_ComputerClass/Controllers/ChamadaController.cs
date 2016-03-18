@@ -27,10 +27,10 @@ namespace BNR_ComputerClass.Controllers
             IEnumerable<Agenda> agendas;
 
             if (aulaId != 0)
-                agendas = _servicoDeChamada.Get(x => x.AulaId == aulaId, "Agenda.Horario").Select(x => x.Agenda).Distinct();
+                agendas = _servicoDeChamada.Get(x => x.AulaId == aulaId, "Agenda.Horario").Select(x => x.Agenda).OrderBy(x => x.Horario.Ordem).Distinct();
             else
             {
-                agendas = _servicoDeAgenda.GetAll("Horario");
+                agendas = _servicoDeAgenda.GetAll("Horario").OrderBy(x => x.Horario.Ordem);
                 var remove = chamadasCadastradas.Select(item => agendas.First(x => x.Id == item.Id)).ToList();
                 agendas = agendas.Except(remove);
             }

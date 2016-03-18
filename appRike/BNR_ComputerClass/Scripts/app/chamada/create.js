@@ -10,6 +10,7 @@ $(document).ready(function () {
             .done(function (result) {
                 $("#divAgendas").html(result);
                 bootstrapToggle();
+                changeCheckbox();
             });
     });
 
@@ -42,12 +43,8 @@ $(document).ready(function () {
         }
     });
 
-    $(":checkbox").change(function () {
-        var valor = $("#" + this.id).val() == "false" ? false : true;
-        $("#" + this.id).val(!valor);
-    });
-
     bootstrapToggle();
+    changeCheckbox();
 });
 
 function bootstrapToggle() {
@@ -55,6 +52,13 @@ function bootstrapToggle() {
         on: 'Presente',
         off: 'Faltou',
         offstyle: 'danger'
+    });
+}
+
+function changeCheckbox() {
+    $(":checkbox").change(function () {
+        var valor = $("#itemPresenca" + this.id).val().toLowerCase() == "false" ? false : true;
+        $("#itemPresenca" + this.id).val(!valor);
     });
 }
 
