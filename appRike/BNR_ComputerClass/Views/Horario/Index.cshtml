@@ -9,26 +9,6 @@
 
 <div class="form-horizontal">
     <hr />
-    <div class="form-group">
-        <div class="col-md-3">
-            <div class="form-group">
-                &nbsp;&nbsp;&nbsp;
-                <label>
-                    @Html.RadioButton("TipoRadio", 1, true) Dia
-                    &nbsp;&nbsp;
-                </label>
-                <label>
-                    @Html.RadioButton("TipoRadio", 2) Aluno
-                    &nbsp;&nbsp;
-                </label>
-
-                <label>
-                    @Html.RadioButton("TipoRadio", 3) Computador
-                    &nbsp;&nbsp;
-                </label>
-            </div>
-        </div>
-    </div>
     <div class="espaco-top-5px" id="divAgendas">
         <br />
         @Html.Partial("_Alunos", Model)

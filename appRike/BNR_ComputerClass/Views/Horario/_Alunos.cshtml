@@ -1,4 +1,5 @@
 ﻿@using BNR_ComputerClass.Models
+@using Microsoft.Ajax.Utilities
 @model  IEnumerable<AgendaModel>
 
 @{
@@ -17,20 +18,11 @@
     </div>
     <table class="table">
         <tr>
-            <th class="col-md-4">
-                @Html.DisplayNameFor(model => model.Aluno)
-            </th>
             <th class="col-md-2">
                 @Html.DisplayNameFor(model => model.Computador)
             </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Horario.Dia)
-            </th>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Horario.HoraInicial)
-            </th>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Horario.HoraFinal)
+            <th class="col-md-4">
+                @Html.DisplayNameFor(model => model.Aluno)
             </th>
             <th class="col-md-2"></th>
         </tr>
@@ -39,19 +31,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Aluno.Nome)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Computador.Descricao)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Horario.Dia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Horario.HoraInicial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Horario.HoraFinal)
+                    @if (item.Aluno != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Aluno.Nome)
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
                 </td>
                 <td>
                     @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
@@ -68,7 +58,3 @@ else
 @section Scripts {
     @Scripts.Render("~/bundles/horario/index")
 }
-
-
-
-

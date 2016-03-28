@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using BNR_ComputerClass.Models;
+using Dominio.Tools;
 using Infra.Servicos;
 using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
@@ -36,10 +37,10 @@ namespace BNR_ComputerClass.Controllers
             }
 
             var horariosModel = Mapper.Map<List<HorarioModel>>(agendas.Select(x => x.Horario).Distinct().ToList());
+            //var hoje = horariosModel.FirstOrDefault(x => x.Dia.Equals(Converter.DiaIngParaPort(DateTime.Now.DayOfWeek)));
             ViewBag.Horarios = new SelectList(horariosModel, "Id", "HorarioSelect", 0);
-
-            var firstOrDefault = horariosModel.FirstOrDefault();
-            return firstOrDefault != null ? firstOrDefault.Id : 0;
+            var first = horariosModel.FirstOrDefault();
+            return first != null ? first.Id : 0;
         }
 
         private List<ChamadaModel> RetornaChamadasCreate(int horarioId)

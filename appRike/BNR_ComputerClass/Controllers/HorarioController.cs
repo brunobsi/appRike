@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using BNR_ComputerClass.Models;
 using Dominio.Entidades;
+using Dominio.Tools;
 using Infra.Servicos;
 
 namespace BNR_ComputerClass.Controllers
@@ -17,7 +18,6 @@ namespace BNR_ComputerClass.Controllers
         private readonly ServicoDeAluno _servicoDeAluno = new ServicoDeAluno();
         private readonly ServicoDeAgenda _servicoDeAgenda = new ServicoDeAgenda();
         private readonly List<string> _listDias, _listHorariosIni, _listHorariosFim;
-        private const int FiltroByDia = 1, FiltroByAluno = 2, FiltroByComputador = 3;
 
         public HorarioController()
         {
@@ -46,76 +46,63 @@ namespace BNR_ComputerClass.Controllers
             ViewBag.Alunos = new SelectList(_servicoDeAluno.GetAll(), "Id", "Nome", 0);
         }
 
-        private int RetornaAlunosIndex(int alunoId = 0)
+        private int RetornaHorarioIndex(int horarioId = 0)
         {
-            var alunos = _servicoDeAgenda.GetAll("Aluno").Select(x => x.Aluno).Distinct().OrderBy(x => x.Nome).ToList();
-            TempData["Filtro"] = new SelectList(alunos, "Id", "Nome", alunoId);
-            var firstOrDefault = alunos.FirstOrDefault();
-            return firstOrDefault != null ? firstOrDefault.Id : 0;
+            var horarios = _servicoDeAgenda.GetAll("Horario")
+                                           .OrderBy(x => x.Horario.Ordem)
+                                           .ThenBy(x => x.Horario.HoraInicial)
+                                           .ThenBy(x => x.Horario.HoraFinal)
+                                           .Select(x => x.Horario)
+                                           .Distinct()
+                                           .ToList();
+
+            var listModel = Mapper.Map<List<HorarioModel>>(horarios);
+            var hoje = horarios.FirstOrDefault(x => x.Dia.Equals(Converter.DiaIngParaPort(DateTime.Now.DayOfWeek)));
+            if (hoje == null) return 0;
+            horarioId = horarioId == 0 ? hoje.Id : horarioId;
+            TempData["Filtro"] = new SelectList(listModel, "Id", "HorarioSelect", horarioId);
+            return hoje.Id;
         }
 
-        private int RetornaComputadorIndex(int computadorId = 0)
+        private List<AgendaModel> MontaListaComputadores(IEnumerable<AgendaModel> listModel)
         {
-            var computadores = _servicoDeAgenda.GetAll("Computador").Select(x => x.Computador).Distinct().OrderBy(x => x.Descricao).ToList();
-            TempData["Filtro"] = new SelectList(computadores, "Id", "Descricao", computadorId);
-            var firstOrDefault = computadores.FirstOrDefault();
-            return firstOrDefault != null ? firstOrDefault.Id : 0;
-        }
+            var computadores = _servicoDeComputador.GetAll();
+            var listAgendaModel = computadores.Select(comp => new AgendaModel
+            {
+                ComputadorId = comp.Id,
+                Computador = Mapper.Map<ComputadorModel>(comp)
+            }).ToList();
 
-        private string RetornaDiaIndex(string dia = "")
-        {
-            var dias = _servicoDeAgenda.GetAll("Horario").OrderBy(x => x.Horario.Ordem).Select(x => x.Horario.Dia).Distinct().ToList();
-            TempData["Filtro"] = new SelectList(dias, dia);
-            return dias.First();
+            foreach (var item in listModel)
+            {
+                var agenda = listAgendaModel.FirstOrDefault(x => x.ComputadorId == item.ComputadorId);
+                if (agenda == null) continue;
+                agenda.HorarioId = item.HorarioId;
+                agenda.AlunoId = item.AlunoId;
+                agenda.Horario = item.Horario;
+                agenda.Aluno = item.Aluno;
+            }
+
+            return listAgendaModel;
         }
 
         public ActionResult Index()
         {
-            var dia = RetornaDiaIndex();
-            var list = Mapper.Map<List<AgendaModel>>(_servicoDeAgenda.Get(x => x.Horario.Dia.Equals(dia), "Horario", "Aluno", "Computador"));
-            return View(list);
+            var horarioId = RetornaHorarioIndex();
+            var list = Mapper.Map<List<AgendaModel>>(_servicoDeAgenda.Get(x => x.HorarioId == horarioId, "Horario", "Aluno", "Computador"));
+            var listAgendaModel = MontaListaComputadores(list);
+            return View(listAgendaModel);
         }
 
-        [Route("AtualizaHorariosIndex/{filtro:int}/{value}"), HttpGet]
-        public ActionResult AtualizaHorariosIndex(int filtro, string value)
+        [Route("AtualizaHorariosIndex/{value}"), HttpGet]
+        public ActionResult AtualizaHorariosIndex(string value)
         {
             var list = _servicoDeAgenda.GetAll("Horario", "Aluno", "Computador");
-            switch (filtro)
-            {
-                case FiltroByAluno:
-                    var alunoId = Convert.ToInt32(value);
-                    RetornaAlunosIndex(alunoId);
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.AlunoId == alunoId)));
-                case FiltroByComputador:
-                    var computadorId = Convert.ToInt32(value);
-                    RetornaComputadorIndex(computadorId);
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.ComputadorId == computadorId)));
-                case FiltroByDia:
-                    RetornaDiaIndex(value);
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.Horario.Dia.Equals(value))));
-            }
-
-            return null;
-        }
-
-        [Route("AtualizaSelectFiltro/{filtro:int}"), HttpGet]
-        public ActionResult AtualizaSelectFiltro(int filtro)
-        {
-            var list = _servicoDeAgenda.GetAll("Horario", "Aluno", "Computador");
-            switch (filtro)
-            {
-                case FiltroByAluno:
-                    var alunoId = RetornaAlunosIndex();
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.AlunoId == alunoId)));
-                case FiltroByComputador:
-                    var computadorId = RetornaComputadorIndex();
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.ComputadorId == computadorId)));
-                case FiltroByDia:
-                    var dia = RetornaDiaIndex();
-                    return PartialView("_Alunos", Mapper.Map<List<AgendaModel>>(list.Where(x => x.Horario.Dia.Equals(dia))));
-            }
-
-            return PartialView("_Alunos", list);
+            var horarioId = Convert.ToInt32(value);
+            RetornaHorarioIndex(horarioId);
+            var listModel = Mapper.Map<List<AgendaModel>>(list.Where(x => x.HorarioId == horarioId));
+            var listAgendaModel = MontaListaComputadores(listModel);
+            return PartialView("_Alunos", listAgendaModel);
         }
 
         public ActionResult Create()
