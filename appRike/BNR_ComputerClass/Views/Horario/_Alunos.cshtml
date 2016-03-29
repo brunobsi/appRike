@@ -21,7 +21,7 @@
             <th class="col-md-2">
                 @Html.DisplayNameFor(model => model.Computador)
             </th>
-            <th class="col-md-4">
+            <th class="col-md-6">
                 @Html.DisplayNameFor(model => model.Aluno)
             </th>
             <th class="col-md-2"></th>
@@ -33,19 +33,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Computador.Descricao)
                 </td>
-                <td>
-                    @if (item.Aluno != null)
-                    {
+                @if (item.Aluno != null)
+                {
+                    <td>
                         @Html.DisplayFor(modelItem => item.Aluno.Nome)
-                    }
-                    else
-                    {
-                        <span>-</span>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-                </td>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                }
+                else
+                {
+                    <td><span>-</span></td>
+                    <td>
+                        @Html.ActionLink("Apagar", "Delete", new { id = item.Id }, new { disabled = "disabled", @class = "btn btn-danger" })
+                    </td>
+                }
             </tr>
         }
     </table>

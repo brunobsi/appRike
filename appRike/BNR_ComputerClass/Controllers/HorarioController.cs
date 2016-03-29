@@ -37,55 +37,6 @@ namespace BNR_ComputerClass.Controllers
             };
         }
 
-        private void InitSelectsCreate()
-        {
-            ViewBag.Dias = new SelectList(_listDias, 0);
-            ViewBag.HorariosIni = new SelectList(_listHorariosIni, 0);
-            ViewBag.HorariosFim = new SelectList(_listHorariosFim, 0);
-            ViewBag.Computadores = new SelectList(_servicoDeComputador.GetAll(), "Id", "Descricao", 0);
-            ViewBag.Alunos = new SelectList(_servicoDeAluno.GetAll(), "Id", "Nome", 0);
-        }
-
-        private int RetornaHorarioIndex(int horarioId = 0)
-        {
-            var horarios = _servicoDeAgenda.GetAll("Horario")
-                                           .OrderBy(x => x.Horario.Ordem)
-                                           .ThenBy(x => x.Horario.HoraInicial)
-                                           .ThenBy(x => x.Horario.HoraFinal)
-                                           .Select(x => x.Horario)
-                                           .Distinct()
-                                           .ToList();
-
-            var listModel = Mapper.Map<List<HorarioModel>>(horarios);
-            var hoje = horarios.FirstOrDefault(x => x.Dia.Equals(Converter.DiaIngParaPort(DateTime.Now.DayOfWeek)));
-            if (hoje == null) return 0;
-            horarioId = horarioId == 0 ? hoje.Id : horarioId;
-            TempData["Filtro"] = new SelectList(listModel, "Id", "HorarioSelect", horarioId);
-            return hoje.Id;
-        }
-
-        private List<AgendaModel> MontaListaComputadores(IEnumerable<AgendaModel> listModel)
-        {
-            var computadores = _servicoDeComputador.GetAll();
-            var listAgendaModel = computadores.Select(comp => new AgendaModel
-            {
-                ComputadorId = comp.Id,
-                Computador = Mapper.Map<ComputadorModel>(comp)
-            }).ToList();
-
-            foreach (var item in listModel)
-            {
-                var agenda = listAgendaModel.FirstOrDefault(x => x.ComputadorId == item.ComputadorId);
-                if (agenda == null) continue;
-                agenda.HorarioId = item.HorarioId;
-                agenda.AlunoId = item.AlunoId;
-                agenda.Horario = item.Horario;
-                agenda.Aluno = item.Aluno;
-            }
-
-            return listAgendaModel;
-        }
-
         public ActionResult Index()
         {
             var horarioId = RetornaHorarioIndex();
@@ -93,30 +44,11 @@ namespace BNR_ComputerClass.Controllers
             var listAgendaModel = MontaListaComputadores(list);
             return View(listAgendaModel);
         }
-
-        [Route("AtualizaHorariosIndex/{value}"), HttpGet]
-        public ActionResult AtualizaHorariosIndex(string value)
-        {
-            var list = _servicoDeAgenda.GetAll("Horario", "Aluno", "Computador");
-            var horarioId = Convert.ToInt32(value);
-            RetornaHorarioIndex(horarioId);
-            var listModel = Mapper.Map<List<AgendaModel>>(list.Where(x => x.HorarioId == horarioId));
-            var listAgendaModel = MontaListaComputadores(listModel);
-            return PartialView("_Alunos", listAgendaModel);
-        }
-
+     
         public ActionResult Create()
         {
             InitSelectsCreate();
             return View();
-        }
-
-        [Route("SugerirHoraFinal/{horaInicial}"), HttpGet]
-        public JsonResult SugerirHoraFinal(string horaInicial)
-        {
-            var hora = DateTime.ParseExact(horaInicial, "H:m", null).Hour;
-            var list = (from t in _listHorariosFim let horafim = DateTime.ParseExact(t, "H:m", null).Hour where horafim > hora select t).ToList();
-            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -170,6 +102,75 @@ namespace BNR_ComputerClass.Controllers
             {
                 return View(model);
             }
+        }
+
+        [Route("SugerirHoraFinal/{horaInicial}"), HttpGet]
+        public JsonResult SugerirHoraFinal(string horaInicial)
+        {
+            var hora = DateTime.ParseExact(horaInicial, "H:m", null).Hour;
+            var list = (from t in _listHorariosFim let horafim = DateTime.ParseExact(t, "H:m", null).Hour where horafim > hora select t).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        [Route("AtualizaHorariosIndex/{value}"), HttpGet]
+        public ActionResult AtualizaHorariosIndex(string value)
+        {
+            var list = _servicoDeAgenda.GetAll("Horario", "Aluno", "Computador");
+            var horarioId = Convert.ToInt32(value);
+            RetornaHorarioIndex(horarioId);
+            var listModel = Mapper.Map<List<AgendaModel>>(list.Where(x => x.HorarioId == horarioId));
+            var listAgendaModel = MontaListaComputadores(listModel);
+            return PartialView("_Alunos", listAgendaModel);
+        }
+
+        private void InitSelectsCreate()
+        {
+            ViewBag.Dias = new SelectList(_listDias, 0);
+            ViewBag.HorariosIni = new SelectList(_listHorariosIni, 0);
+            ViewBag.HorariosFim = new SelectList(_listHorariosFim, 0);
+            ViewBag.Computadores = new SelectList(_servicoDeComputador.GetAll(), "Id", "Descricao", 0);
+            ViewBag.Alunos = new SelectList(_servicoDeAluno.GetAll(), "Id", "Nome", 0);
+        }
+
+        private int RetornaHorarioIndex(int horarioId = 0)
+        {
+            var horarios = _servicoDeAgenda.GetAll("Horario")
+                                           .OrderBy(x => x.Horario.Ordem)
+                                           .ThenBy(x => x.Horario.HoraInicial)
+                                           .ThenBy(x => x.Horario.HoraFinal)
+                                           .Select(x => x.Horario)
+                                           .Distinct()
+                                           .ToList();
+
+            var listModel = Mapper.Map<List<HorarioModel>>(horarios);
+            var hoje = horarios.SingleOrDefault(x => x.Dia.Equals(Converter.DiaIngParaPort(DateTime.Now.DayOfWeek))) ??
+                       horarios.FirstOrDefault();
+            horarioId = horarioId == 0 && hoje != null ? hoje.Id : horarioId;
+            TempData["Filtro"] = new SelectList(listModel, "Id", "HorarioSelect", horarioId);
+            return horarioId;
+        }
+
+        private List<AgendaModel> MontaListaComputadores(IEnumerable<AgendaModel> listModel)
+        {
+            var computadores = _servicoDeComputador.GetAll();
+            var listAgendaModel = computadores.Select(comp => new AgendaModel
+            {
+                ComputadorId = comp.Id,
+                Computador = Mapper.Map<ComputadorModel>(comp)
+            }).ToList();
+
+            foreach (var item in listModel)
+            {
+                var agenda = listAgendaModel.FirstOrDefault(x => x.ComputadorId == item.ComputadorId);
+                if (agenda == null) continue;
+                agenda.Id = item.Id;
+                agenda.HorarioId = item.HorarioId;
+                agenda.AlunoId = item.AlunoId;
+                agenda.Horario = item.Horario;
+                agenda.Aluno = item.Aluno;
+            }
+
+            return listAgendaModel;
         }
     }
 }
