@@ -158,7 +158,6 @@ namespace BNR_ComputerClass.Controllers
             var hora = DateTime.Now.Hour;
             hora = hora < 8 ? 8 : hora > 10 && hora < 14 ? 14 : hora > 16 ? 16 : hora;
             var horaInicial = hora < 10 ? "0" + hora + ":00" : hora + ":00";
-
             ViewBag.Dias = new SelectList(_listDias, dia);
             ViewBag.HorariosIni = new SelectList(_listHorariosIni, horaInicial);
             ViewBag.HorariosFim = new SelectList(_listHorariosFimManha, 0);
@@ -185,9 +184,26 @@ namespace BNR_ComputerClass.Controllers
             var listDias = listModel.Select(x => x.Dia).Distinct();
             listModel = listModel.Where(x => x.Dia.Equals(dia)).ToList();
             var listHorarios = listModel.Where(x => x.Dia.Equals(dia)).OrderBy(x => x.HoraInicial).Distinct();
-            var horario = listModel.FirstOrDefault(x => x.HoraInicial.Equals(horaInicial)) ??
-                listModel.FirstOrDefault();
-            horarioId = horario != null && horarioId == 0 ? horario.Id : horarioId;
+            if (listModel.Count > 0)
+            {
+                var horario = listModel.FirstOrDefault(x => x.HoraInicial.Equals(horaInicial));
+                while (horario == null)
+                {
+                    if (hora < 16)
+                    {
+                        hora++;
+                        horaInicial = hora < 10 ? "0" + hora + ":00" : hora + ":00";
+                        horario = listModel.FirstOrDefault(x => x.HoraInicial.Equals(horaInicial));
+                    }
+                    else
+                    {
+                        horario = listModel.FirstOrDefault();
+                    }
+                }
+
+                horarioId = horario.Id;
+            }
+
             TempData["Dias"] = new SelectList(listDias, dia);
             TempData["Horarios"] = new SelectList(listHorarios, "Id", "HorarioSelect", horarioId);
             return horarioId;
