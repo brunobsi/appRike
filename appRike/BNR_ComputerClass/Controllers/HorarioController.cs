@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace BNR_ComputerClass.Controllers
         private readonly ServicoDeComputador _servicoDeComputador = new ServicoDeComputador();
         private readonly ServicoDeAluno _servicoDeAluno = new ServicoDeAluno();
         private readonly ServicoDeAgenda _servicoDeAgenda = new ServicoDeAgenda();
-        private readonly List<string> _listDias, _listHorariosIni, _listHorariosFimManha, _listHorarioFimTarde;
+        private readonly List<string> _listDias, _listHorariosIni, _listHorariosFimManha, _listHorariosFimTarde;
 
         public HorarioController()
         {
@@ -37,7 +38,7 @@ namespace BNR_ComputerClass.Controllers
                 "09:00", "10:00","11:00",
             };
 
-            _listHorarioFimTarde = new List<string>
+            _listHorariosFimTarde = new List<string>
             {
                 "15:00","16:00","17:00",
             };
@@ -126,7 +127,7 @@ namespace BNR_ComputerClass.Controllers
         public JsonResult SugerirHoraFinal(string horaInicial)
         {
             var hora = DateTime.ParseExact(horaInicial, "H:m", null).Hour;
-            var listHorariosFim = hora < 11 ? _listHorariosFimManha : _listHorarioFimTarde;
+            var listHorariosFim = hora < 11 ? _listHorariosFimManha : _listHorariosFimTarde;
             var list = (from t in listHorariosFim let horafim = DateTime.ParseExact(t, "H:m", null).Hour where horafim > hora select t).ToList();
             return Json(list, JsonRequestBehavior.AllowGet);
         }
@@ -153,8 +154,13 @@ namespace BNR_ComputerClass.Controllers
 
         private void InitSelectsCreate()
         {
-            ViewBag.Dias = new SelectList(_listDias, Converter.DiaIngParaPort(DateTime.Now.DayOfWeek));
-            ViewBag.HorariosIni = new SelectList(_listHorariosIni, 0);
+            var dia = Converter.DiaIngParaPort(DateTime.Now.DayOfWeek);
+            var hora = DateTime.Now.Hour;
+            hora = hora < 8 ? 8 : hora > 10 && hora < 14 ? 14 : hora > 16 ? 16 : hora;
+            var horaInicial = hora < 10 ? "0" + hora + ":00" : hora + ":00";
+
+            ViewBag.Dias = new SelectList(_listDias, dia);
+            ViewBag.HorariosIni = new SelectList(_listHorariosIni, horaInicial);
             ViewBag.HorariosFim = new SelectList(_listHorariosFimManha, 0);
             ViewBag.Computadores = new SelectList(_servicoDeComputador.GetAll(), "Id", "Descricao", 0);
             ViewBag.Alunos = new SelectList(_servicoDeAluno.GetAll(), "Id", "Nome", 0);
@@ -163,6 +169,9 @@ namespace BNR_ComputerClass.Controllers
         private int RetornaHorarioIndex(string dia = "", int horarioId = 0)
         {
             dia = string.IsNullOrEmpty(dia) ? Converter.DiaIngParaPort(DateTime.Now.DayOfWeek) : dia;
+            var hora = DateTime.Now.Hour;
+            hora = hora < 8 ? 8 : hora > 10 && hora < 14 ? 14 : hora > 16 ? 16 : hora;
+            var horaInicial = hora < 10 ? "0" + hora + ":00" : hora + ":00";
 
             var horarios = _servicoDeAgenda.GetAll("Horario")
                                            .OrderBy(x => x.Horario.Ordem)
@@ -176,9 +185,9 @@ namespace BNR_ComputerClass.Controllers
             var listDias = listModel.Select(x => x.Dia).Distinct();
             listModel = listModel.Where(x => x.Dia.Equals(dia)).ToList();
             var listHorarios = listModel.Where(x => x.Dia.Equals(dia)).OrderBy(x => x.HoraInicial).Distinct();
-            var horario = listModel.FirstOrDefault(x => x.HoraInicial.Contains(DateTime.Now.Hour.ToString(CultureInfo.InvariantCulture))) ?? 
+            var horario = listModel.FirstOrDefault(x => x.HoraInicial.Equals(horaInicial)) ??
                 listModel.FirstOrDefault();
-            horarioId = horario != null && horarioId == 0 ? horario.Id : horarioId; 
+            horarioId = horario != null && horarioId == 0 ? horario.Id : horarioId;
             TempData["Dias"] = new SelectList(listDias, dia);
             TempData["Horarios"] = new SelectList(listHorarios, "Id", "HorarioSelect", horarioId);
             return horarioId;
