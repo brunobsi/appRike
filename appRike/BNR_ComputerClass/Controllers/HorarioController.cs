@@ -184,7 +184,7 @@ namespace BNR_ComputerClass.Controllers
             var listDias = listModel.Select(x => x.Dia).Distinct();
             listModel = listModel.Where(x => x.Dia.Equals(dia)).ToList();
             var listHorarios = listModel.Where(x => x.Dia.Equals(dia)).OrderBy(x => x.HoraInicial).Distinct();
-            if (listModel.Count > 0)
+            if (listModel.Count > 0 && horarioId == 0)
             {
                 var horario = listModel.FirstOrDefault(x => x.HoraInicial.Equals(horaInicial));
                 while (horario == null)
