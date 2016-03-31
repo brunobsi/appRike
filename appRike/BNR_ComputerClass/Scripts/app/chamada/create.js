@@ -1,18 +1,6 @@
 ﻿// ReSharper disable once UseOfImplicitGlobalInFunctionScope
+var baseUrl = urlBase;
 $(document).ready(function () {
-    var baseUrl = urlBase;
-
-    $("#Horarios").change(function () {
-        $.ajax({
-            url: baseUrl + "/Chamada/AtualizaAgendasCreate?horarioId=" + $("#Horarios").val(),
-            type: "GET",
-        })
-            .done(function (result) {
-                $("#divAgendas").html(result);
-                bootstrapToggle();
-                changeCheckbox();
-            });
-    });
 
     $("#btnCreate").click(function () {
         var erro = false;
@@ -44,8 +32,10 @@ $(document).ready(function () {
     });
 
     bootstrapToggle();
-    changeCheckbox();
+    registerChangeCheckbox();
+    registerChangeSelect();
 });
+
 
 function bootstrapToggle() {
     $(":checkbox").bootstrapToggle({
@@ -55,10 +45,25 @@ function bootstrapToggle() {
     });
 }
 
-function changeCheckbox() {
+function registerChangeCheckbox() {
     $(":checkbox").change(function () {
         var valor = $("#itemPresenca" + this.id).val().toLowerCase() == "false" ? false : true;
         $("#itemPresenca" + this.id).val(!valor);
+    });
+}
+
+function registerChangeSelect() {
+    $("#Horarios").change(function () {
+        $.ajax({
+            url: baseUrl + "/Chamada/AtualizaAgendasCreate?horarioId=" + $(this).val(),
+            type: "GET",
+        })
+            .done(function (result) {
+                $("#divAgendas").html(result);
+                bootstrapToggle();
+                registerChangeCheckbox();
+                registerChangeSelect();
+            });
     });
 }
 

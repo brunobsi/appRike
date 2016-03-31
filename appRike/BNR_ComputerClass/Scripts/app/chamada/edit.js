@@ -1,19 +1,7 @@
 ﻿// ReSharper disable once UseOfImplicitGlobalInFunctionScope
+var baseUrl = urlBase;
+
 $(document).ready(function () {
-    var baseUrl = urlBase;
-
-    $("#Horarios").change(function () {
-        $.ajax({
-            url: baseUrl + "/Chamada/AtualizaAgendasEdit?horarioId=" + $("#Horarios").val() + "&aulaId=" + $("#Id").val(),
-            type: "GET",
-        })
-            .done(function (result) {
-                $("#divAgendas").html(result);
-                changeCheckbox();
-                bootstrapToggle();
-            });
-    });
-
     $("#btnEdit").click(function () {
         var erro = false;
         var agendasId = $("#AgendasId").val().split(',');
@@ -44,7 +32,8 @@ $(document).ready(function () {
         }
     });
 
-    changeCheckbox();
+    registerChangeCheckbox();
+    registerChangeSelect();
     bootstrapToggle();
 });
 
@@ -56,9 +45,24 @@ function bootstrapToggle() {
     });
 }
 
-function changeCheckbox() {
+function registerChangeCheckbox() {
     $(":checkbox").change(function () {
         var valor = $("#itemPresenca" + this.id).val().toLowerCase() == "false" ? false : true;
         $("#itemPresenca" + this.id).val(!valor);
+    });
+}
+
+function registerChangeSelect() {
+    $("#Horarios").change(function () {
+        $.ajax({
+            url: baseUrl + "/Chamada/AtualizaAgendasEdit?horarioId=" + $(this).val() + "&aulaId=" + $("#Id").val(),
+            type: "GET",
+        })
+            .done(function (result) {
+                $("#divAgendas").html(result);
+                bootstrapToggle();
+                registerChangeCheckbox();
+                registerChangeSelect();
+            });
     });
 }

@@ -6,9 +6,20 @@ $(document).ready(function () {
     registerChangeSelect();
 
     function registerChangeSelect() {
-        $("#Select").change(function () {
+        $("#Dia").change(function () {
             $.ajax({
-                url: baseUrl + "/Horario/AtualizaHorariosIndex?value="+ $(this).val(),
+                url: baseUrl + "/Horario/AtualizaHorariosIndex?dia="+ $(this).val(),
+                type: "GET",
+            })
+            .done(function (result) {
+                $("#divAgendas").html(result);
+                registerChangeSelect();
+            });
+        });
+
+        $("#Horarios").change(function () {
+            $.ajax({
+                url: baseUrl + "/Horario/AtualizaAgendasIndex?horarioId=" + $(this).val(),
                 type: "GET",
             })
             .done(function (result) {

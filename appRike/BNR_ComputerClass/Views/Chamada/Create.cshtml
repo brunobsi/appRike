@@ -3,8 +3,7 @@
 
 @{
     ViewBag.Title = "Realizar Chamada";
-    var horarios = (SelectList) ViewBag.Horarios;
-   
+    var horarios = (SelectList)TempData["Horarios"];
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,26 +12,19 @@
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
-        <b> @ViewBag.DataHoje</b>
+        <b>@ViewBag.DataHoje </b>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-      
+
         @if (horarios.Any())
         {
-            <div class="form-group">
-                @Html.Label("Horários", new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.DropDownList("Horarios", horarios, new { @class = "form-control campoFirst" })
-                </div>
-            </div>
-
             <div id="divAgendas" class="espaco-top-5px">
                 @Html.Partial("_Alunos", Model)
             </div>
 
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.ActionLink("Voltar", "Index", null, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
                     <input id="btnCreate" type="button" value="Salvar" class="btn btn-success" />
                 </div>
             </div>

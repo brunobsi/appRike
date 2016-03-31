@@ -7,7 +7,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Realizar Chamada (" + (string)@ViewBag.DataHoje + ")", "Create", null, new { id="btnNovo", @class = "btn btn-info" })
+    @Html.ActionLink("Realizar Chamada (" + (string)@ViewBag.DataHoje + " - " + (string)@ViewBag.Dia + ")", "Create", null, new { id = "btnNovo", @class = "btn btn-info" })
 </p>
 
 @if (Model.Any())

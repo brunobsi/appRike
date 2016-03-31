@@ -1,5 +1,4 @@
-﻿@using System.Activities.Statements
-@using BNR_ComputerClass.Models
+﻿@using BNR_ComputerClass.Models
 @model AulaModel
 
 @{
@@ -13,20 +12,13 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <b> @Model.Data</b>
+        <b> @Model.Data </b>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(x => x.Id)
 
         @if (Model.ChamadasModel.Count > 0)
         {
-            <div class="form-group">
-                @Html.Label("Horários", new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Horarios", (SelectList)ViewBag.Horarios, new { @class = "form-control" })
-                </div>
-            </div>
-            
             <div id="divAgendas" class="espaco-top-5px">
                 @Html.Partial("_Alunos", Model)
             </div>

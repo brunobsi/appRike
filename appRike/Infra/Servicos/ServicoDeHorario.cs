@@ -19,12 +19,38 @@ namespace Infra.Servicos
             _db = new DbContexto();
         }
 
-        public void Adicionar(Horario horario)
+        public List<Horario> Adicionar(Horario horario)
         {
-            if (VerificaExistente(horario)) return;
-            VerificaOrdem(horario);
-            _db.Horarios.Add(horario);
+            var listHorarios = new List<Horario>();
+            var horaBase = DateTime.ParseExact(horario.HoraInicial, "H:m", null).Hour;
+            var horaLimite = DateTime.ParseExact(horario.HoraFinal, "H:m", null).Hour;
+            var intervalo = horaLimite - horaBase;
+
+            for (var i = 0; i < intervalo; i++)
+            {
+                var inicial = horaBase + i;
+                var final = horaBase + i + 1;
+
+                var horarioAdd = new Horario
+                {
+                    Dia = horario.Dia,
+                    HoraInicial = inicial < 10 ? "0" + inicial + ":00" : inicial + ":00",
+                    HoraFinal = final < 10 ? "0" + final + ":00" : final + ":00"
+                };
+
+                if (VerificaExistente(horarioAdd))
+                {
+                    listHorarios.Add(horarioAdd);
+                    continue;
+                }
+
+                VerificaOrdem(horarioAdd);
+                _db.Horarios.Add(horarioAdd);
+                listHorarios.Add(horarioAdd);
+            }
+
             _db.SaveChanges();
+            return listHorarios;
         }
 
         public bool Alterar(Horario horario)

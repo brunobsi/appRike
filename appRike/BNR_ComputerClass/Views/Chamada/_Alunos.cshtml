@@ -1,5 +1,19 @@
 ﻿@using BNR_ComputerClass.Models
 @model AulaModel
+           
+@{
+    ViewBag.Title = "Realizar Chamada";
+    var horarios = (SelectList)TempData["Horarios"];
+}
+
+<div  class="form-group">
+    <div class="control-label col-md-1">
+        @Html.Label("Horários")
+    </div>
+    <div class="col-md-3">
+        @Html.DropDownList("Horarios", horarios, new { @class = "form-control" })
+    </div>
+</div>
 
 <table class="table">
     <tr>

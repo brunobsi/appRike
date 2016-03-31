@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Dominio.Entidades;
+using Dominio.Tools;
 
 namespace BNR_ComputerClass.Models
 {
@@ -14,7 +14,7 @@ namespace BNR_ComputerClass.Models
             set
             {
                 _dataAula = value;
-                Data = value.ToShortDateString();
+                Data = value.ToShortDateString() + " ("+ Converter.DiaIngParaPort(value.DayOfWeek) +")";
             }
         }
 

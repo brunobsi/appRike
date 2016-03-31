@@ -1,16 +1,19 @@
 ﻿@using BNR_ComputerClass.Models
-@using Microsoft.Ajax.Utilities
 @model  IEnumerable<AgendaModel>
 
 @{
-    var select = (SelectList)@TempData["Filtro"];
+    var dias = (SelectList)@TempData["Dias"];
+    var horarios = (SelectList)@TempData["Horarios"];
 }
 
-@if (select.Any())
+@if (dias.Any())
 {
     <div class="form-group">
-        <div class="col-md-3">
-            @Html.DropDownList("Select", select, new { @class = "form-control campoFirst" })
+        <div class="col-md-2">
+            @Html.DropDownList("Dia", dias, new { @class = "form-control campoFirst" })
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("Horarios", horarios, new { @class = "form-control" })
         </div>
         <div class="col-md-2">
             @Html.ActionLink("Novo", "Create", null, new { id = "btnNovo", @class = "btn btn-info" })

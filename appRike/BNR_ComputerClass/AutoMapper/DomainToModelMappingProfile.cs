@@ -15,7 +15,7 @@ namespace BNR_ComputerClass.AutoMapper
         {
             Mapper.CreateMap<Horario, HorarioModel>()
                 .ForMember(p => p.HorarioSelect, opt => opt.MapFrom(src =>
-                     string.Format("{0} das {1} às {2}", src.Dia, src.HoraInicial, src.HoraFinal)
+                     string.Format("{0} às {1}", src.HoraInicial, src.HoraFinal)
                     ));
 
             Mapper.CreateMap<Computador, ComputadorModel>();

@@ -104,7 +104,7 @@ namespace appRike.Cadastros
 
             if (iCodigo == 0)
             {
-                result = horarioApp.Adicionar(objHorario);
+                result = horarioApp.Adicionar(objHorario).Any();
             }
             else
             {
